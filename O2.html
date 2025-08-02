@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오목컴퓨터</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #deb887;
+            margin: 0;
+            padding: 10px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-x: auto;
+        }
+
+
+    .game-container {
+        background: #deb887;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 600px;
+        box-sizing: border-box;
+        position: relative;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 15px;
+        font-size: clamp(1.3rem, 3.7vw, 1.9rem);
+    }
+
+    .language-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: rgba(255,255,255,0.9);
+        padding: 8px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        z-index: 100;
+    }
+
+    .language-button {
+        background: #2e8b8b;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        margin: 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-family: 'Arial', sans-serif;
+        font-size: clamp(0.8rem, 2vw, 1rem);
+        transition: all 0.3s ease;
+    }
+
+    .language-button:hover {
+        background: #20b2aa;
+    }
+
+    .language-button.active {
+        background: #ff69b4;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .game-info {
+        text-align: center;
+        margin-bottom: 15px;
+        font-size: clamp(1rem, 3vw, 1.2rem);
+        color: #555;
+    }
+
+    .current-player {
+        font-weight: bold;
+        color: #333;
+        font-size: min(1.4em, 4.5vw);
+    }
+
+    .difficulty-selector {
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .difficulty-btn {
+        background: linear-gradient(45deg, #4CAF50, #45a049);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 15px;
+        cursor: pointer;
+        margin: 0 5px;
+        transition: all 0.3s;
+        font-size: clamp(1rem, 3vw, 1.2rem);
+    }
+
+    .difficulty-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .difficulty-btn.active {
+        background: linear-gradient(45deg, #FF9800, #F57C00);
+    }
+
+    .board-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .board {
+        background: #f4a460;
+        border: 3px solid #8b4513;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 0 auto;
+    }
+
+    .board-grid {
+        position: relative;
+        width: min(420px, 90vw);
+        height: min(420px, 90vw);
+        background: #f4a460;
+        margin: 0 auto;
+    }
+
+    .board-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .intersection {
+        position: absolute;
+        width: min(24px, 6vw);
+        height: min(24px, 6vw);
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .intersection:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .intersection.disabled {
+        cursor: not-allowed;
+    }
+
+    .stone {
+        width: min(20px, 5vw);
+        height: min(20px, 5vw);
+        border-radius: 50%;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s;
+        position: relative;
+        z-index: 10;
+    }
+
+    .stone:hover {
+        transform: scale(1.05);
+    }
+
+    .black {
+        background: radial-gradient(circle at 30% 30%, #555, #000);
+        border: 1px solid #333;
+    }
+
+    .white {
+        background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+        border: 1px solid #ccc;
+    }
+
+    .controls {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .btn {
+        background-color: #ad8e65;
+        color: #2e261c;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: min(1.1em, 3.8vw);
+        margin: 5px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .winner {
+        text-align: center;
+        font-size: min(2em, 5vw);
+        font-weight: bold;
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 10px;
+        animation: pulse 2s infinite;
+    }
+
+    .winner.player-wins {
+        background: linear-gradient(45deg, #333, #555);
+        color: white;
+    }
+
+    .winner.ai-wins {
+        background: linear-gradient(45deg, #f0f0f0, #fff);
+        color: #333;
+        border: 2px solid #ccc;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .player-indicator {
+        display: inline-block;
+        width: min(20px, 5vw);
+        height: min(20px, 5vw);
+        border-radius: 50%;
+        margin-right: 10px;
+        vertical-align: middle;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .thinking {
+        color: #FF9800;
+        font-style: italic;
+    }
+
+    .ai-status {
+        text-align: center;
+        margin: 10px 0;
+        color: #666;
+        font-size: min(1em, 3.5vw);
+        min-height: 24px;
+    }
+
+    @media (max-width: 600px) {
+        .game-container {
+            padding: 15px;
+        }
+        
+        .board {
+            padding: 8px;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+        }
+        
+        .game-info, .difficulty-selector, .board-container {
+            margin-bottom: 10px;
+        }
+    }
+</style>
+
+
+</head>
+<body>
+    <div class="game-container">
+        <div class="language-toggle">
+            <button class="language-button active" onclick="toggleLanguage('ko')">한국어</button>
+            <button class="language-button" onclick="toggleLanguage('en')">English</button>
+        </div>
+
+
+    <h1 id="gameTitle">오목 vs 컴퓨터</h1>
+
+    <!-- 한국어 콘텐츠 -->
+    <div id="korean-content">
+        <h3>돌 5개를 한 줄로 놓으면 이깁니다.</h3>
+        
+        <div class="difficulty-selector">
+            <label>컴퓨터의 실력을 선택하세요.</label><br>
+            선택하면 주황색으로 변합니다.<br>
+            <button class="difficulty-btn active" onclick="setDifficulty('easy')">하수</button>
+            <button class="difficulty-btn" onclick="setDifficulty('medium')">중수</button>
+            <button class="difficulty-btn" onclick="setDifficulty('hard')">고수</button>
+        </div>
+
+        <div class="game-info">
+            <div class="current-player">
+                <span class="player-indicator black"></span>
+                <span id="currentPlayerText-ko">당신 차례 (흑돌)</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 영어 콘텐츠 -->
+    <div id="english-content" class="hidden">
+        <h3>Get 5 stones in a row to win!</h3>
+        
+        <div class="difficulty-selector">
+            <label>Choose the computer's skill level.</label><br>
+            The selected option will be highlighted in orange.<br>
+            <button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
+            <button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
+            <button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
+        </div>
+
+        <div class="game-info">
+            <div class="current-player">
+                <span class="player-indicator black"></span>
+                <span id="currentPlayerText-en">Your turn (black stone)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="ai-status" id="aiStatus"></div>
+
+    <div class="board-container">
+        <div class="board">
+            <div class="board-grid" id="board"></div>
+        </div>
+    </div>
+
+    <div id="winner" class="winner" style="display: none;"></div>
+
+    <div class="controls">
+        <button class="btn" onclick="resetGame()" id="newGameBtn">새 게임<br>New Game</button>
+        <button class="btn" onclick="undoMove()" id="undoBtn">무르기<br>Take Back</button>
+        <button onclick="location.href='index.html'" class="btn">🏠 홈으로<br>Go to Home</button>
+    </div>
+</div>
+
+
+<script>
+    let currentLanguage = 'ko';
+
+    // 언어 전환 함수
+    function toggleLanguage(lang) {
+        currentLanguage = lang;
+        
+        // 언어 버튼 활성화 상태 변경
+        document.querySelectorAll('.language-button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        // 콘텐츠 표시/숨김
+        if (lang === 'ko') {
+            document.getElementById('korean-content').classList.remove('hidden');
+            document.getElementById('english-content').classList.add('hidden');
+            document.getElementById('gameTitle').textContent = '오목 vs 컴퓨터';
+        } else {
+            document.getElementById('korean-content').classList.add('hidden');
+            document.getElementById('english-content').classList.remove('hidden');
+            document.getElementById('gameTitle').textContent = 'OMOK vs AI';
+        }
+
+        // 게임이 진행 중이면 현재 상태 업데이트
+        if (game) {
+            game.updateDisplayLanguage();
+        }
+    }
+
+    class OmokAI {
+        constructor() {
+            this.boardSize = 15;
+            this.board = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
+            this.currentPlayer = 1; // 1: 사람(흑돌), 2: AI(백돌)
+            this.gameOver = false;
+            this.moveHistory = [];
+            this.difficulty = 'easy';
+            this.isThinking = false;
+            
+            this.initBoard();
+            this.updateDisplay();
+        }
+
+        initBoard() {
+            const boardElement = document.getElementById('board');
+            boardElement.innerHTML = '';
+
+            const boardSize = Math.min(420, window.innerWidth * 0.9);
+            const cellSize = boardSize / 16; // 16개 간격으로 15줄 (양쪽 패딩 포함)
+            const padding = cellSize;
+
+            boardElement.style.width = boardSize + 'px';
+            boardElement.style.height = boardSize + 'px';
+
+            // 바둑판 선 그리기
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', boardSize);
+            svg.setAttribute('height', boardSize);
+            svg.setAttribute('class', 'board-lines');
+
+            // 세로선 그리기
+            for (let i = 0; i < this.boardSize; i++) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const x = padding + i * cellSize;
+                line.setAttribute('x1', x);
+                line.setAttribute('y1', padding);
+                line.setAttribute('x2', x);
+                line.setAttribute('y2', boardSize - padding);
+                line.setAttribute('stroke', '#8b4513');
+                line.setAttribute('stroke-width', '1');
+                svg.appendChild(line);
+            }
+
+            // 가로선 그리기
+            for (let i = 0; i < this.boardSize; i++) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const y = padding + i * cellSize;
+                line.setAttribute('x1', padding);
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', boardSize - padding);
+                line.setAttribute('y2', y);
+                line.setAttribute('stroke', '#8b4513');
+                line.setAttribute('stroke-width', '1');
+                svg.appendChild(line);
+            }
+
+            // 화점 그리기
+            const starPoints = [[3, 3], [3, 11], [11, 3], [11, 11], [7, 7]];
+            starPoints.forEach(([row, col]) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', padding + col * cellSize);
+                circle.setAttribute('cy', padding + row * cellSize);
+                circle.setAttribute('r', Math.max(2, cellSize * 0.08));
+                circle.setAttribute('fill', '#8b4513');
+                svg.appendChild(circle);
+            });
+
+            boardElement.appendChild(svg);
+
+            // 교차점에 클릭 가능한 영역 만들기
+            for (let row = 0; row < this.boardSize; row++) {
+                for (let col = 0; col < this.boardSize; col++) {
+                    const intersection = document.createElement('div');
+                    intersection.className = 'intersection';
+                    intersection.dataset.row = row;
+                    intersection.dataset.col = col;
+                    
+                    const intersectionSize = Math.min(24, window.innerWidth * 0.06);
+                    intersection.style.width = intersectionSize + 'px';
+                    intersection.style.height = intersectionSize + 'px';
+                    intersection.style.left = (padding + col * cellSize - intersectionSize/2) + 'px';
+                    intersection.style.top = (padding + row * cellSize - intersectionSize/2) + 'px';
+                    
+                    intersection.addEventListener('click', () => this.humanMove(row, col));
+                    boardElement.appendChild(intersection);
+                }
+            }
+        }
+
+        humanMove(row, col) {
+            if (this.gameOver || this.board[row][col] !== 0 || this.currentPlayer !== 1 || this.isThinking) {
+                return;
+            }
+
+            this.makeMove(row, col);
+            
+            if (!this.gameOver && this.currentPlayer === 2) {
+                this.aiMove();
+            }
+        }
+
+        makeMove(row, col) {
+            this.board[row][col] = this.currentPlayer;
+            this.moveHistory.push({row, col, player: this.currentPlayer});
+
+            this.updateCell(row, col);
+            
+            if (this.checkWin(row, col)) {
+                this.endGame();
+                return;
+            }
+
+            this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+            this.updateDisplay();
+        }
+
+        async aiMove() {
+            if (this.gameOver) return;
+
+            this.isThinking = true;
+            this.updateAIStatus(currentLanguage === 'ko' ? '🤔 컴퓨터가 생각중...' : '🤔 Computer thinking...');
+            this.disableBoard();
+
+            // 난이도에 따른 지연시간
+            const thinkTime = this.difficulty === 'easy' ? 500 : 
+                            this.difficulty === 'medium' ? 1000 : 1500;
+
+            await new Promise(resolve => setTimeout(resolve, thinkTime));
+
+            const move = this.getBestMove();
+            if (move) {
+                this.makeMove(move.row, move.col);
+            }
+
+            this.isThinking = false;
+            this.updateAIStatus('');
+            this.enableBoard();
+        }
+
+        getBestMove() {
+            const moves = this.getAvailableMoves();
+            if (moves.length === 0) return null;
+
+            // 첫 수는 중앙 근처에
+            if (this.moveHistory.length <= 1) {
+                const centerMoves = moves.filter(move => 
+                    Math.abs(move.row - 7) <= 2 && Math.abs(move.col - 7) <= 2
+                );
+                return centerMoves[Math.floor(Math.random() * centerMoves.length)];
+            }
+
+            let bestMove = null;
+            let bestScore = -Infinity;
+
+            moves.forEach(move => {
+                let score = this.evaluateMove(move.row, move.col);
+                
+                // 난이도에 따른 랜덤성 추가
+                if (this.difficulty === 'easy') {
+                    score += (Math.random() - 0.5) * 200;
+                } else if (this.difficulty === 'medium') {
+                    score += (Math.random() - 0.5) * 100;
+                }
+
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestMove = move;
+                }
+            });
+
+            return bestMove;
+        }
+
+        evaluateMove(row, col) {
+            let score = 0;
+
+            // AI(백돌)로 놓았을 때의 점수
+            score += this.evaluatePosition(row, col, 2);
+            
+            // 상대방(흑돌)을 막는 점수
+            score += this.evaluatePosition(row, col, 1) * 0.9;
+
+            // 중앙 선호도
+            const centerDistance = Math.abs(row - 7) + Math.abs(col - 7);
+            score += (14 - centerDistance) * 2;
+
+            return score;
+        }
+
+        evaluatePosition(row, col, player) {
+            const directions = [
+                [0, 1], [1, 0], [1, 1], [1, -1]
+            ];
+
+            let totalScore = 0;
+
+            directions.forEach(([dx, dy]) => {
+                let count = 1;
+                let openEnds = 0;
+                let blocked = 0;
+
+                // 한 방향 체크
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row + dx * i;
+                    const newCol = col + dy * i;
+                    
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize) {
+                        blocked++;
+                        break;
+                    }
+                    
+                    if (this.board[newRow][newCol] === player) {
+                        count++;
+                    } else if (this.board[newRow][newCol] === 0) {
+                        openEnds++;
+                        break;
+                    } else {
+                        blocked++;
+                        break;
+                    }
+                }
+
+                // 반대 방향 체크
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row - dx * i;
+                    const newCol = col - dy * i;
+                    
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize) {
+                        blocked++;
+                        break;
+                    }
+                    
+                    if (this.board[newRow][newCol] === player) {
+                        count++;
+                    } else if (this.board[newRow][newCol] === 0) {
+                        openEnds++;
+                        break;
+                    } else {
+                        blocked++;
+                        break;
+                    }
+                }
+
+                // 점수 계산
+                if (count >= 5) {
+                    totalScore += 100000; // 승리
+                } else if (count === 4) {
+                    if (openEnds >= 1) totalScore += 10000; // 4목
+                    else totalScore += 1000;
+                } else if (count === 3) {
+                    if (openEnds >= 2) totalScore += 1000; // 활3
+                    else if (openEnds >= 1) totalScore += 100; // 죽3
+                } else if (count === 2) {
+                    if (openEnds >= 2) totalScore += 100; // 활2
+                    else if (openEnds >= 1) totalScore += 10;
+                }
+            });
+
+            return totalScore;
+        }
+
+        getAvailableMoves() {
+            const moves = [];
+            for (let row = 0; row < this.boardSize; row++) {
+                for (let col = 0; col < this.boardSize; col++) {
+                    if (this.board[row][col] === 0) {
+                        moves.push({row, col});
+                    }
+                }
+            }
+            return moves;
+        }
+
+        updateCell(row, col) {
+            const intersection = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            const stone = document.createElement('div');
+            const stoneSize = Math.min(20, window.innerWidth * 0.05);
+            stone.className = `stone ${this.board[row][col] === 1 ? 'black' : 'white'}`;
+            stone.style.width = stoneSize + 'px';
+            stone.style.height = stoneSize + 'px';
+            intersection.appendChild(stone);
+        }
+
+        checkWin(row, col) {
+            const directions = [
+                [0, 1], [1, 0], [1, 1], [1, -1]
+            ];
+
+            const player = this.board[row][col];
+
+            for (let [dx, dy] of directions) {
+                let count = 1;
+                
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row + dx * i;
+                    const newCol = col + dy * i;
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize ||
+                        this.board[newRow][newCol] !== player) {
+                        break;
+                    }
+                    count++;
+                }
+
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row - dx * i;
+                    const newCol = col - dy * i;
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize ||
+                        this.board[newRow][newCol] !== player) {
+                        break;
+                    }
+                    count++;
+                }
+
+                if (count >= 5) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        endGame() {
+            this.gameOver = true;
+            const winner = currentLanguage === 'ko' ? 
+                (this.currentPlayer === 1 ? '당신' : '컴퓨터') :
+                (this.currentPlayer === 1 ? 'You' : 'Computer');
+            const winText = currentLanguage === 'ko' ? '승리!' : 'Win!';
+            
+            const winnerElement = document.getElementById('winner');
+            winnerElement.textContent = `🎉 ${winner} ${winText} 🎉`;
+            winnerElement.className = `winner ${this.currentPlayer === 1 ? 'player-wins' : 'ai-wins'}`;
+            winnerElement.style.display = 'block';
+            this.updateDisplay();
+        }
+
+        updateDisplay() {
+            if (this.gameOver) {
+                return;
+            }
+
+            this.updateDisplayLanguage();
+        }
+
+        updateDisplayLanguage() {
+            const playerIndicator = document.querySelector('.player-indicator');
+            
+            if (currentLanguage === 'ko') {
+                const currentPlayerText = document.getElementById('currentPlayerText-ko');
+                if (currentPlayerText) {
+                    if (this.currentPlayer === 1) {
+                        currentPlayerText.textContent = '당신 차례 (흑돌)';
+                        playerIndicator.className = 'player-indicator black';
+                    } else {
+                        currentPlayerText.textContent = '컴퓨터 차례 (백돌)';
+                        playerIndicator.className = 'player-indicator white';
+                    }
+                }
+            } else {
+                const currentPlayerText = document.getElementById('currentPlayerText-en');
+                if (currentPlayerText) {
+                    if (this.currentPlayer === 1) {
+                        currentPlayerText.textContent = 'Your turn (black stone)';
+                        playerIndicator.className = 'player-indicator black';
+                    } else {
+                        currentPlayerText.textContent = 'Computer turn (white stone)';
+                        playerIndicator.className = 'player-indicator white';
+                    }
+                }
+            }
+        }
+
+        updateAIStatus(message) {
+            document.getElementById('aiStatus').innerHTML = message;
+        }
+
+        disableBoard() {
+            const intersections = document.querySelectorAll('.intersection');
+            intersections.forEach(intersection => {
+                intersection.classList.add('disabled');
+            });
+            document.getElementById('undoBtn').disabled = true;
+        }
+
+        enableBoard() {
+            const intersections = document.querySelectorAll('.intersection');
+            intersections.forEach(intersection => {
+                intersection.classList.remove('disabled');
+            });
+            document.getElementById('undoBtn').disabled = false;
+        }
+
+        undoMove() {
+            if (this.moveHistory.length === 0 || this.gameOver || this.isThinking) {
+                return;
+            }
+
+            // 사람의 수와 AI의 수를 모두 되돌림
+            for (let i = 0; i < 2 && this.moveHistory.length > 0; i++) {
+                const lastMove = this.moveHistory.pop();
+                this.board[lastMove.row][lastMove.col] = 0;
+
+                const intersection = document.querySelector(`[data-row="${lastMove.row}"][data-col="${lastMove.col}"]`);
+                const stone = intersection.querySelector('.stone');
+                if (stone) {
+                    stone.remove();
+                }
+            }
+
+            this.currentPlayer = 1; // 사람 차례로
+            this.updateDisplay();
+        }
+
+        setDifficulty(level) {
+            this.difficulty = level;
+        }
+
+        resetGame() {
+            this.board = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
+            this.currentPlayer = 1;
+            this.gameOver = false;
+            this.moveHistory = [];
+            this.isThinking = false;
+            
+            document.getElementById('winner').style.display = 'none';
+            document.getElementById('undoBtn').disabled = false;
+            this.updateAIStatus('');
+            this.initBoard();
+            this.updateDisplay();
+        }
+    }
+
+    let game;
+
+    function resetGame() {
+        game = new OmokAI();
+    }
+
+    function undoMove() {
+        game.undoMove();
+    }
+
+    function setDifficulty(level) {
+        game.setDifficulty(level);
+        
+        // 버튼 스타일 업데이트
+        document.querySelectorAll('.difficulty-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+    }
+
+    // 화면 크기 변경 시 보드 다시 그리기
+    window.addEventListener('resize', () => {
+        if (game) {
+            game.initBoard();
+            // 기존 돌들 다시 그리기
+            for (let row = 0; row < game.boardSize; row++) {
+                for (let col = 0; col < game.boardSize; col++) {
+                    if (game.board[row][col] !== 0) {
+                        game.updateCell(row, col);
+                    }
+                }
+            }
+        }
+    });
+
+    window.addEventListener('load', () => {
+        game = new OmokAI();
+    });
+</script>
+
+</body>
+</html>
