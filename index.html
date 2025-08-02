@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오목</title>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard', sans-serif;
+    background: #deb887;        
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.header {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+}
+
+.language-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.9);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+.language-button {
+    background: #2e8b8b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Pretendard', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    transition: all 0.3s ease;
+}
+
+.language-button:hover {
+    background: #20b2aa;
+}
+
+.language-button.active {
+    background: #ff69b4;
+}
+
+.main-title {
+    font-size: clamp(1.3rem, 3.7vw, 1.9rem);
+    font-weight: bold;
+    color:#2e261c;
+    margin-top: 20px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.game-description {
+    color: #f0f8ff;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.game-description h3 {
+    color:#2e261c;
+    margin-bottom: 15px;
+    font-size: clamp(1rem, 3vw, 1.3rem);
+    border-bottom: 2px solid #add8e6;
+    padding-bottom: 8px;
+}
+
+.game-description p {
+    margin-bottom: 15px;
+color:#2e261c;
+}
+
+.game-description ul {
+    margin-bottom: 20px;
+    padding-left: 20px;
+    color:#2e261c;
+}
+
+.game-description li {
+    margin-bottom: 8px;
+}
+
+.game-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.main-game-button {
+    background: rgba(255,255,255,0.9);
+    color: #2e261c;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    width: 100%;
+}
+
+.main-game-button:hover {
+    background: #f0f8ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.main-game-button:active {
+    transform: translateY(0);
+}
+
+.footer {
+    margin-top: auto;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.square-button {
+            width: 250px;
+            height: 45px;
+            background-color: #ad8e65;
+            color: #2e261c;
+            border: none;
+            border-radius: 12px; /* 둥근 모서리 */
+            cursor: pointer;
+            font-size: 1.1rem; /*크기 고정 */
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            line-height: 1.2;
+            margin: 8px;
+            transition: all 0.3s ease;
+            font-family: Arial, sans-serif;
+        }
+
+    .square-button:hover {
+        background-color: #FF8FAB; /* 호버 시 진한 분홍 */
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .square-button:active {
+        transform: scale(0.95);
+    }
+.credits {
+        margin-top: 50px;
+        font-size: 0.9em;
+        color:#2e261c;
+        background-color: #deb887;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px;
+    }
+
+    .language-toggle {
+        top: 15px;
+        right: 15px;
+        padding: 6px;
+    }
+
+    .content {
+        padding: 15px;
+    }
+
+    
+}
+
+/* 매우 작은 화면 */
+@media (max-width: 480px) {
+    .header {
+        padding: 10px;
+    }
+
+    .language-toggle {
+        position: static;
+        float: right;
+        margin-bottom: 20px;
+    }
+
+    .main-title {
+        clear: both;
+        margin-top: 10px;
+    }
+
+    .content {
+        padding: 10px;
+    }
+
+    .buttons-container {
+        max-width: 300px;
+    }
+
+    .footer {
+        padding: 15px;
+    }
+}
+
+/* 가로 모드 모바일 */
+@media (max-height: 600px) and (orientation: landscape) {
+    .content {
+        justify-content: flex-start;
+        padding-top: 10px;
+    }
+
+    .game-description {
+        margin-bottom: 20px;
+    }
+
+    .game-menu {
+        margin-top: 10px;
+        gap: 15px;
+    }
+
+    .buttons-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 600px;
+    }
+
+    .main-game-button {
+        flex: 1;
+        min-width: 180px;
+        max-width: 200px;
+    }
+
+    .footer {
+        padding: 10px;
+    }
+
+    .credits {
+        padding: 15px;
+    }
+}
+
+
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header">
+            <div class="language-toggle">
+                <button class="language-button active" onclick="toggleLanguage('ko')">한국어</button>
+                <button class="language-button" onclick="toggleLanguage('en')">English</button>
+            </div>
+            <h1 class="main-title">오목 OMOK</h1>
+        </div>
+
+
+    <!-- 메인 콘텐츠 -->
+    <div class="content">
+        <!-- 한국어 설명 -->
+        <div class="game-description" id="korean-description">
+            <h3> 돌 5개를 한 줄로 놓으면 이깁니다. </h3>
+            <p> 오목 = 오(5)+ 목(점)</p>
+            
+            <h3>📋 게임 규칙</h3>
+            <ul>
+                <li>오목은  전통놀이로  한수수의 저작권은 없습니다.</li>
+                <li>검은 돌과 흰 돌이 있으며 두 선수는 교대로 돌을 한 개씩 놓습니다.</li>
+                <li>컴퓨터가 똑똑하니 방심은 금물이에요.</li>
+                <li>하수 컴퓨터는 가끔 실수를 합니다.</li>
+                <li>고수 컴퓨터는 실수가 없으니 이기기가 쉽지 않을 겁니다.</li>
+                </ul>
+
+            <div class="game-menu">
+                <div class="buttons-container">
+                    <button class="main-game-button" onclick="location.href='O1.html'">
+                        👫두 사람이 대결하기  
+                    </button>
+                    <button class="main-game-button" onclick="location.href='O2.html'">
+                        🤖 컴퓨터와 대결하기 
+                    </button>
+                  <button class="square-button" onclick="location.href='https://soosoohan.github.io/soosooland/'">
+    재미있게 공부하는 수수랜드
+</button>
+    
+                </div>
+            </div>
+        </div>
+        <!-- 영어 설명 -->
+     
+<div class="game-description hidden" id="english-description">
+    <h3>Get 5 stones in a row to win!</h3>
+    <p>OMOK = O(5) + MOK(spot)</p>
+    
+    <h3>📋 Game Rules</h3>
+    <ul>
+        <li>Two players take turns placing black and white stones.</li>
+        <li>The goal is to make a straight line of exactly 5 stones—horizontally, vertically, or diagonally.</li>
+        <li>The board is 15×15, and stones go on the intersections.</li>
+        <li>Once placed, stones stay in place </li>
+        <li>you can undo your last move using the <strong>Take Back</strong> button.</li>
+<li>The game ends immediately when a player forms a line of 5.</li>
+    </ul>
+
+    <h3>🤖 About Computer Opponent</h3>
+    <ul>
+        <li>You can play against the computer with different difficulty levels.</li>
+        <li>You can choose the computer's level: Beginner, Normal, or Expert.</li>
+        <li>Beginner: Sometimes makes mistakes.</li>
+        <li>Normal: Plays reasonably well.</li>
+        <li>Expert: Very strong and rarely makes mistakes.</li>
+    </ul>
+
+            <div class="game-menu">
+                <div class="buttons-container">
+                    <div class="game-menu">
+                <div class="buttons-container">
+                    <button class="main-game-button" onclick="location.href='O1.html'">
+                        👫 Play with a Friend 
+                    </button>
+                    <button class="main-game-button" onclick="location.href='O2.html'">
+                        🤖 Play against Computer
+                    </button>
+                <button class="square-button" onclick="location.href='https://soosoohan.github.io/soosooland/'">
+    SOOSOO LAND
+</button>
+</div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+<script>
+    function toggleLanguage(lang) {
+        const koreanDesc = document.getElementById('korean-description');
+        const englishDesc = document.getElementById('english-description');
+        const buttons = document.querySelectorAll('.language-button');
+        
+        buttons.forEach(btn => btn.classList.remove('active'));
+        
+        if (lang === 'ko') {
+            koreanDesc.classList.remove('hidden');
+            englishDesc.classList.add('hidden');
+            buttons[0].classList.add('active');
+        } else {
+            koreanDesc.classList.add('hidden');
+            englishDesc.classList.remove('hidden');
+            buttons[1].classList.add('active');
+        }
+    }
+</script>
+
+
+</body>
+</html>
