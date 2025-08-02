@@ -1,7 +1,7 @@
 # 🏯 OMOK - Traditional Strategy Game
 
-한, 중, 일의 전통놀이  오목입니다.
-**Omok** is a classic board game enjoyed in **Korea, China, and Japan**.  
+한, 중, 일의 전통놀이  오목입니다.   
+**Omok** is a classic board game enjoyed in **Korea, China, and Japan**.     
 The word *Omok* comes from Korean:  
 **"O" (오, five) + "Mok" (목, point)** — your goal is to make exactly five in a row!
 
