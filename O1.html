@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오목사람</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #deb887;
+            margin: 0;
+            padding: 10px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow-x: auto;
+        }
+
+
+    .game-container {
+        background: #deb887;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 700px;
+        box-sizing: border-box;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+        font-size: clamp(1.3rem, 3.7vw, 1.9rem);
+         }
+
+    .game-info {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .current-player {
+        font-weight: bold;
+        color: #333;
+        font-size: 1.4em;
+    }
+
+    .board-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 15px;
+        width: 100%;
+        overflow: auto;
+    }
+
+    .board {
+        background: #f4a460;
+        border: 3px solid #8b4513;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+
+    .board-grid {
+        position: relative;
+        width: 600px;
+        height: 600px;
+        background: #f4a460;
+        margin: 0 auto;
+    }
+
+    .board-lines {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .intersection {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+        margin: -15px 0 0 -15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .intersection:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    .stone {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s;
+        position: relative;
+        z-index: 10;
+    }
+
+    .stone:hover {
+        transform: scale(1.05);
+    }
+
+    .black {
+        background: radial-gradient(circle at 30% 30%, #555, #000);
+        border: 1px solid #333;
+    }
+
+    .white {
+        background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+        border: 1px solid #ccc;
+    }
+
+    .controls {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .btn {
+        background-color: #ad8e65;
+            color: #2e261c;
+                    border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1.1em;
+        margin: 0 10px;
+        transition: all 0.3s;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .winner {
+        text-align: center;
+        font-size: 2em;
+        font-weight: bold;
+        margin: 20px 0;
+        padding: 15px;
+        border-radius: 10px;
+        animation: pulse 2s infinite;
+    }
+
+    .winner.black-wins {
+        background: linear-gradient(45deg, #333, #555);
+        color: white;
+    }
+
+    .winner.white-wins {
+        background: linear-gradient(45deg, #f0f0f0, #fff);
+        color: #333;
+        border: 2px solid #ccc;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    .game-stats {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 20px;
+        font-size: 1.1em;
+    }
+
+    .stat {
+        text-align: center;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 10px;
+        min-width: 100px;
+    }
+
+    .player-indicator {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 10px;
+        vertical-align: middle;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+        .board-grid {
+            width: 450px;
+            height: 450px;
+        }
+        
+        .intersection {
+            width: 24px;
+            height: 24px;
+            margin: -12px 0 0 -12px;
+        }
+        
+        .stone {
+            width: 20px;
+            height: 20px;
+        }
+    }
+</style>
+
+
+</head>
+<body>
+    <div class="game-container">
+        <h1>오목(OMOK)</h1>
+
+
+    <div class="game-info">
+        <div class="current-player">
+            <span class="player-indicator black"></span>
+            <span id="currentPlayerText">흑돌 차례</span>
+        </div>
+    </div>
+
+    <div class="board-container">
+        <div class="board">
+            <div class="board-grid" id="board"></div>
+        </div>
+    </div>
+
+    <div id="winner" class="winner" style="display: none;"></div>
+
+    <div class="controls">
+        <button class="btn" onclick="resetGame()">새 게임<br>New Game</button>
+        <button class="btn" onclick="undoMove()"> 무르기<br> Take back</button>
+    <button onclick="location.href='index.html'" class="btn">
+                🏠 홈으로<br>Go to Home
+            </button></div>
+
+    </div>
+
+<script>
+    class OmokGame {
+        constructor() {
+            this.boardSize = 15;
+            this.board = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
+            this.currentPlayer = 1; // 1: 흑돌, 2: 백돌
+            this.gameOver = false;
+            this.moveHistory = [];
+            this.blackWins = 0;
+            this.whiteWins = 0;
+            
+            this.initBoard();
+            this.updateDisplay();
+            this.updateStats();
+        }
+
+        initBoard() {
+            const boardElement = document.getElementById('board');
+            boardElement.innerHTML = '';
+
+            // 바둑판 선 그리기
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', '560');
+            svg.setAttribute('height', '560');
+            svg.setAttribute('class', 'board-lines');
+
+            const cellSize = 40; // 셀 크기를 40px로 증가
+            const margin = 20;   // 여백을 20px로 증가
+
+            // 세로선 그리기 (15개)
+            for (let i = 0; i < this.boardSize; i++) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const x = margin + i * cellSize;
+                line.setAttribute('x1', x);
+                line.setAttribute('y1', margin);
+                line.setAttribute('x2', x);
+                line.setAttribute('y2', margin + (this.boardSize - 1) * cellSize);
+                line.setAttribute('stroke', '#8b4513');
+                line.setAttribute('stroke-width', '2');
+                svg.appendChild(line);
+            }
+
+            // 가로선 그리기 (15개)
+            for (let i = 0; i < this.boardSize; i++) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                const y = margin + i * cellSize;
+                line.setAttribute('x1', margin);
+                line.setAttribute('y1', y);
+                line.setAttribute('x2', margin + (this.boardSize - 1) * cellSize);
+                line.setAttribute('y2', y);
+                line.setAttribute('stroke', '#8b4513');
+                line.setAttribute('stroke-width', '2');
+                svg.appendChild(line);
+            }
+
+            // 화점 그리기 (3-3, 11-11 등)
+            const starPoints = [[3, 3], [3, 11], [11, 3], [11, 11], [7, 7]];
+            starPoints.forEach(([row, col]) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', margin + col * cellSize);
+                circle.setAttribute('cy', margin + row * cellSize);
+                circle.setAttribute('r', '4');
+                circle.setAttribute('fill', '#8b4513');
+                svg.appendChild(circle);
+            });
+
+            boardElement.appendChild(svg);
+
+            // 교차점에 클릭 가능한 영역 만들기
+            for (let row = 0; row < this.boardSize; row++) {
+                for (let col = 0; col < this.boardSize; col++) {
+                    const intersection = document.createElement('div');
+                    intersection.className = 'intersection';
+                    intersection.dataset.row = row;
+                    intersection.dataset.col = col;
+                    intersection.style.left = (margin + col * cellSize) + 'px';
+                    intersection.style.top = (margin + row * cellSize) + 'px';
+                    intersection.addEventListener('click', () => this.makeMove(row, col));
+                    boardElement.appendChild(intersection);
+                }
+            }
+        }
+
+        makeMove(row, col) {
+            if (this.gameOver || this.board[row][col] !== 0) {
+                return;
+            }
+
+            // 착수
+            this.board[row][col] = this.currentPlayer;
+            this.moveHistory.push({row, col, player: this.currentPlayer});
+
+            // 화면 업데이트
+            this.updateCell(row, col);
+            
+            // 승부 체크
+            if (this.checkWin(row, col)) {
+                this.endGame();
+                return;
+            }
+
+            // 플레이어 교체
+            this.currentPlayer = this.currentPlayer === 1 ? 2 : 1;
+            this.updateDisplay();
+        }
+
+        updateCell(row, col) {
+            const intersection = document.querySelector(`[data-row="${row}"][data-col="${col}"]`);
+            const stone = document.createElement('div');
+            stone.className = `stone ${this.board[row][col] === 1 ? 'black' : 'white'}`;
+            intersection.appendChild(stone);
+        }
+
+        checkWin(row, col) {
+            const directions = [
+                [0, 1],   // 가로
+                [1, 0],   // 세로
+                [1, 1],   // 대각선 \
+                [1, -1]   // 대각선 /
+            ];
+
+            const player = this.board[row][col];
+
+            for (let [dx, dy] of directions) {
+                let count = 1;
+                
+                // 한 방향으로 체크
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row + dx * i;
+                    const newCol = col + dy * i;
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize ||
+                        this.board[newRow][newCol] !== player) {
+                        break;
+                    }
+                    count++;
+                }
+
+                // 반대 방향으로 체크
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row - dx * i;
+                    const newCol = col - dy * i;
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize ||
+                        this.board[newRow][newCol] !== player) {
+                        break;
+                    }
+                    count++;
+                }
+
+                if (count >= 5) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        endGame() {
+            this.gameOver = true;
+            const winner = this.currentPlayer === 1 ? '흑돌' : '백돌';
+            const winnerElement = document.getElementById('winner');
+            winnerElement.textContent = `🎉 ${winner} 승리! 🎉`;
+            winnerElement.className = `winner ${this.currentPlayer === 1 ? 'black-wins' : 'white-wins'}`;
+            winnerElement.style.display = 'block';
+
+            this.updateDisplay();
+        }
+
+        updateDisplay() {
+            const currentPlayerText = document.getElementById('currentPlayerText');
+            const playerIndicator = document.querySelector('.player-indicator');
+            
+            if (this.currentPlayer === 1) {
+                currentPlayerText.textContent = '흑돌 차례';
+                playerIndicator.className = 'player-indicator black';
+            } else {
+                currentPlayerText.textContent = '백돌 차례';
+                playerIndicator.className = 'player-indicator white';
+            }
+
+            document.getElementById('moveCount').textContent = this.moveHistory.length;
+        }
+
+        updateStats() {
+            // 총 수만 표시
+        }
+
+        undoMove() {
+            if (this.moveHistory.length === 0 || this.gameOver) {
+                return;
+            }
+
+            const lastMove = this.moveHistory.pop();
+            this.board[lastMove.row][lastMove.col] = 0;
+
+            // 교차점에서 돌 제거
+            const intersection = document.querySelector(`[data-row="${lastMove.row}"][data-col="${lastMove.col}"]`);
+            const stone = intersection.querySelector('.stone');
+            if (stone) {
+                stone.remove();
+            }
+
+            // 플레이어 되돌리기
+            this.currentPlayer = lastMove.player;
+            this.updateDisplay();
+        }
+
+        resetGame() {
+            this.board = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
+            this.currentPlayer = 1;
+            this.gameOver = false;
+            this.moveHistory = [];
+            
+            document.getElementById('winner').style.display = 'none';
+            this.initBoard();
+            this.updateDisplay();
+        }
+    }
+
+    // 게임 시작
+    let game;
+
+    function resetGame() {
+        game = new OmokGame();
+    }
+
+    function undoMove() {
+        game.undoMove();
+    }
+
+    // 페이지 로드 시 게임 시작
+    window.addEventListener('load', () => {
+        game = new OmokGame();
+    });
+</script>
+
+
+</body>
+</html>
