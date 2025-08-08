@@ -483,9 +483,16 @@
     // 게임 시작
     let game;
 
-    function resetGame() {
-        game = new OmokGame();
-    }
+function resetGame() {
+    // 승리 메시지 지우기
+    const winnerElement = document.getElementById('winner');
+    winnerElement.style.display = 'none';
+    winnerElement.textContent = '';
+    winnerElement.className = 'winner';
+    
+    // 새 게임 생성
+    game = new OmokAI();
+}
 
     function undoMove() {
         game.undoMove();
