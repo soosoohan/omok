@@ -2,12 +2,11 @@
 
 <html lang="ko">
 <head>
- 
-   <!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){dataLayer.push(arguments);} 
       gtag('js', new Date());
       gtag('config', 'G-4YZHC1G9FN');
     </script>
@@ -30,274 +29,273 @@
         }
 
 
+.game-container {
+    background: #deb887;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: clamp(1.3rem, 3.7vw, 1.9rem);
+}
+
+.language-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255,255,255,0.9);
+    padding: 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+.language-button {
+    background: #2e8b8b;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+    transition: all 0.3s ease;
+}
+
+.language-button:hover {
+    background: #20b2aa;
+}
+
+.language-button.active {
+    background: #ff69b4;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.game-info {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: #555;
+}
+
+.current-player {
+    font-weight: bold;
+    color: #333;
+    font-size: min(1.4em, 4.5vw);
+}
+
+.difficulty-selector {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.difficulty-btn {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.3s;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+}
+
+.difficulty-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.difficulty-btn.active {
+    background: linear-gradient(45deg, #FF9800, #F57C00);
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+    width: 100%;
+    overflow: auto;
+}
+
+.board {
+    background: #f4a460;
+    border: 3px solid #8b4513;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.board-grid {
+    position: relative;
+    width: min(420px, 90vw);
+    height: min(420px, 90vw);
+    background: #f4a460;
+    margin: 0 auto;
+}
+
+.board-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.intersection {
+    position: absolute;
+    width: min(24px, 6vw);
+    height: min(24px, 6vw);
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.intersection:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.intersection.disabled {
+    cursor: not-allowed;
+}
+
+.stone {
+    width: min(20px, 5vw);
+    height: min(20px, 5vw);
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s;
+    position: relative;
+    z-index: 10;
+}
+
+.stone:hover {
+    transform: scale(1.05);
+}
+
+.black {
+    background: radial-gradient(circle at 30% 30%, #555, #000);
+    border: 1px solid #333;
+}
+
+.white {
+    background: radial-gradient(circle at 30% 30%, #fff, #ddd);
+    border: 1px solid #ccc;
+}
+
+.controls {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.btn {
+    background-color: #ad8e65;
+    color: #2e261c;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: min(1.1em, 3.8vw);
+    margin: 5px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.winner {
+    text-align: center;
+    font-size: min(2em, 5vw);
+    font-weight: bold;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    animation: pulse 2s infinite;
+}
+
+.winner.player-wins {
+    background: linear-gradient(45deg, #333, #555);
+    color: white;
+}
+
+.winner.ai-wins {
+    background: linear-gradient(45deg, #f0f0f0, #fff);
+    color: #333;
+    border: 2px solid #ccc;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.player-indicator {
+    display: inline-block;
+    width: min(20px, 5vw);
+    height: min(20px, 5vw);
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ai-status {
+    text-align: center;
+    margin: 10px 0;
+    color: #666;
+    font-size: min(1em, 3.5vw);
+    height: 24px;
+    display: flex;                   
+    align-items: center;           
+    justify-content: center;  
+}
+
+@media (max-width: 600px) {
     .game-container {
-        background: #deb887;
-        border-radius: 20px;
-        padding: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        width: 100%;
-        max-width: 600px;
-        box-sizing: border-box;
-        position: relative;
-    }
-
-    h1 {
-        text-align: center;
-        color: #333;
-        margin-bottom: 15px;
-        font-size: clamp(1.3rem, 3.7vw, 1.9rem);
-    }
-
-    .language-toggle {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(255,255,255,0.9);
-        padding: 8px;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        z-index: 100;
-    }
-
-    .language-button {
-        background: #2e8b8b;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        margin: 2px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-family: 'Arial', sans-serif;
-        font-size: clamp(0.8rem, 2vw, 1rem);
-        transition: all 0.3s ease;
-    }
-
-    .language-button:hover {
-        background: #20b2aa;
-    }
-
-    .language-button.active {
-        background: #ff69b4;
-    }
-
-    .hidden {
-        display: none !important;
-    }
-
-    .game-info {
-        text-align: center;
-        margin-bottom: 15px;
-        font-size: clamp(1rem, 3vw, 1.2rem);
-        color: #555;
-    }
-
-    .current-player {
-        font-weight: bold;
-        color: #333;
-        font-size: min(1.4em, 4.5vw);
-    }
-
-    .difficulty-selector {
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    .difficulty-btn {
-        background: linear-gradient(45deg, #4CAF50, #45a049);
-        color: white;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 15px;
-        cursor: pointer;
-        margin: 0 5px;
-        transition: all 0.3s;
-        font-size: clamp(1rem, 3vw, 1.2rem);
-    }
-
-    .difficulty-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .difficulty-btn.active {
-        background: linear-gradient(45deg, #FF9800, #F57C00);
-    }
-
-    .board-container {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 15px;
-        width: 100%;
-        overflow: auto;
-    }
-
-    .board {
-        background: #f4a460;
-        border: 3px solid #8b4513;
-        border-radius: 10px;
-        padding: 10px;
-        margin: 0 auto;
-    }
-
-    .board-grid {
-        position: relative;
-        width: min(420px, 90vw);
-        height: min(420px, 90vw);
-        background: #f4a460;
-        margin: 0 auto;
-    }
-
-    .board-lines {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .intersection {
-        position: absolute;
-        width: min(24px, 6vw);
-        height: min(24px, 6vw);
-        cursor: pointer;
-        border-radius: 50%;
-        transition: background-color 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .intersection:hover {
-        background: rgba(255, 255, 255, 0.3);
-    }
-
-    .intersection.disabled {
-        cursor: not-allowed;
-    }
-
-    .stone {
-        width: min(20px, 5vw);
-        height: min(20px, 5vw);
-        border-radius: 50%;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        transition: transform 0.2s;
-        position: relative;
-        z-index: 10;
-    }
-
-    .stone:hover {
-        transform: scale(1.05);
-    }
-
-    .black {
-        background: radial-gradient(circle at 30% 30%, #555, #000);
-        border: 1px solid #333;
-    }
-
-    .white {
-        background: radial-gradient(circle at 30% 30%, #fff, #ddd);
-        border: 1px solid #ccc;
-    }
-
-    .controls {
-        text-align: center;
-        margin-top: 15px;
-    }
-
-    .btn {
-        background-color: #ad8e65;
-        color: #2e261c;
-        border: none;
-        padding: 12px 24px;
-        border-radius: 25px;
-        cursor: pointer;
-        font-size: min(1.1em, 3.8vw);
-        margin: 5px;
-        transition: all 0.3s;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-    }
-
-    .winner {
-        text-align: center;
-        font-size: min(2em, 5vw);
-        font-weight: bold;
-        margin: 20px 0;
         padding: 15px;
-        border-radius: 10px;
-        animation: pulse 2s infinite;
     }
+    
+    .board {
+        padding: 8px;
+    }
+    
+    h1 {
+        margin-bottom: 10px;
+    }
+    
+    .game-info, .difficulty-selector, .board-container {
+        margin-bottom: 10px;
+    }
+}
 
-    .winner.player-wins {
-        background: linear-gradient(45deg, #333, #555);
-        color: white;
-    }
 
-    .winner.ai-wins {
-        background: linear-gradient(45deg, #f0f0f0, #fff);
-        color: #333;
-        border: 2px solid #ccc;
-    }
-
-    @keyframes pulse {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-    .player-indicator {
-        display: inline-block;
-        width: min(20px, 5vw);
-        height: min(20px, 5vw);
-        border-radius: 50%;
-        margin-right: 10px;
-        vertical-align: middle;
-        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    .thinking {
-        color: #FF9800;
-        font-style: italic;
-    }
-
-    .ai-status {
-        text-align: center;
-        margin: 10px 0;
-        color: #666;
-        font-size: min(1em, 3.5vw);
-        min-height: 24px;
-    }
-
-    @media (max-width: 600px) {
-        .game-container {
-            padding: 15px;
-        }
-        
-        .board {
-            padding: 8px;
-        }
-        
-        h1 {
-            margin-bottom: 10px;
-        }
-        
-        .game-info, .difficulty-selector, .board-container {
-            margin-bottom: 10px;
-        }
-    }
 </style>
-
 
 </head>
 <body>
@@ -308,64 +306,63 @@
         </div>
 
 
-    <h1 id="gameTitle">오목 vs 컴퓨터</h1>
+<h1 id="gameTitle">오목 vs 컴퓨터</h1>
 
-    <!-- 한국어 콘텐츠 -->
-    <div id="korean-content">
-        <h3>돌 5개를 한 줄로 놓으면 이깁니다.</h3>
-        
-        <div class="difficulty-selector">
-            <label>컴퓨터의 실력을 선택하면 주황색으로 변해요.</label><br>
-            <button class="difficulty-btn active" onclick="setDifficulty('easy')">하수</button>
-            <button class="difficulty-btn" onclick="setDifficulty('medium')">중수</button>
-            <button class="difficulty-btn" onclick="setDifficulty('hard')">고수</button>
-        </div>
-
-        <div class="game-info">
-            <div class="current-player">
-                <span class="player-indicator black"></span>
-                <span id="currentPlayerText-ko">당신 차례 (흑돌)</span>
-            </div>
-        </div>
+<!-- 한국어 콘텐츠 -->
+<div id="korean-content">
+    <h3>돌 5개를 한 줄로 놓으면 이깁니다.</h3>
+    
+    <div class="difficulty-selector">
+        <label>컴퓨터의 실력을 선택하면 주황색으로 변해요.</label><br>
+        <button class="difficulty-btn active" onclick="setDifficulty('easy')">하수</button>
+        <button class="difficulty-btn" onclick="setDifficulty('medium')">중수</button>
+        <button class="difficulty-btn" onclick="setDifficulty('hard')">고수</button>
     </div>
 
-    <!-- 영어 콘텐츠 -->
-    <div id="english-content" class="hidden">
-        <h3>Get 5 stones in a row to win!</h3>
-        
-        <div class="difficulty-selector">
-            <label>Choose the computer's skill level.</label><br>
-            The selected option will be highlighted in orange.<br>
-            <button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
-            <button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
-            <button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
+    <div class="game-info">
+        <div class="current-player">
+            <span class="player-indicator black"></span>
+            <span id="currentPlayerText-ko">당신 차례 (흑돌)</span>
         </div>
-
-        <div class="game-info">
-            <div class="current-player">
-                <span class="player-indicator black"></span>
-                <span id="currentPlayerText-en">Your turn (black stone)</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="ai-status" id="aiStatus"></div>
-
-    <div class="board-container">
-        <div class="board">
-            <div class="board-grid" id="board"></div>
-        </div>
-    </div>
-
-    <div id="winner" class="winner" style="display: none;"></div>
-
-    <div class="controls">
-        <button class="btn" onclick="resetGame()" id="newGameBtn">새 게임<br>New Game</button>
-        <button class="btn" onclick="undoMove()" id="undoBtn">무르기<br>Take Back</button>
-        <button onclick="location.href='index.html'" class="btn">🏠 홈으로<br>Go to Home</button>
     </div>
 </div>
 
+<!-- 영어 콘텐츠 -->
+<div id="english-content" class="hidden">
+    <h3>Get 5 stones in a row to win!</h3>
+    
+    <div class="difficulty-selector">
+        <label>Choose the computer's skill level.</label><br>
+        The selected option will be highlighted in orange.<br>
+        <button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
+        <button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
+        <button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
+    </div>
+
+    <div class="game-info">
+        <div class="current-player">
+            <span class="player-indicator black"></span>
+            <span id="currentPlayerText-en">Your turn (black stone)</span>
+        </div>
+    </div>
+</div>
+
+<div class="board-container">
+    <div class="board">
+        <div class="board-grid" id="board"></div>
+    </div>
+</div>
+
+<div id="winner" class="winner" style="display: none;"></div>
+
+<div class="controls">
+    <button class="btn" onclick="resetGame()" id="newGameBtn">새 게임<br>New Game</button>
+    <button class="btn" onclick="undoMove()" id="undoBtn">무르기<br>Take Back</button>
+    <button onclick="location.href='index.html'" class="btn">🏠 홈으로<br>Go to Home</button>
+</div>
+
+
+</div>
 
 <script>
     let currentLanguage = 'ko';
@@ -416,7 +413,7 @@
             boardElement.innerHTML = '';
 
             const boardSize = Math.min(420, window.innerWidth * 0.9);
-            const cellSize = boardSize / 16; // 16개 간격으로 15줄 (양쪽 패딩 포함)
+            const cellSize = boardSize / 16;
             const padding = cellSize;
 
             boardElement.style.width = boardSize + 'px';
@@ -518,10 +515,8 @@
             if (this.gameOver) return;
 
             this.isThinking = true;
-            this.updateAIStatus(currentLanguage === 'ko' ? '🤔 컴퓨터가 생각중...' : '🤔 Computer thinking...');
             this.disableBoard();
 
-            // 난이도에 따른 지연시간
             const thinkTime = this.difficulty === 'easy' ? 500 : 
                             this.difficulty === 'medium' ? 1000 : 1500;
 
@@ -533,7 +528,6 @@
             }
 
             this.isThinking = false;
-            this.updateAIStatus('');
             this.enableBoard();
         }
 
@@ -547,6 +541,12 @@
                     Math.abs(move.row - 7) <= 2 && Math.abs(move.col - 7) <= 2
                 );
                 return centerMoves[Math.floor(Math.random() * centerMoves.length)];
+            }
+
+            // 위험한 상황 먼저 체크
+            const criticalMove = this.findCriticalMove();
+            if (criticalMove) {
+                return criticalMove;
             }
 
             let bestMove = null;
@@ -571,14 +571,131 @@
             return bestMove;
         }
 
+        // 위험한 상황을 체크하는 새로운 함수
+        findCriticalMove() {
+            const moves = this.getAvailableMoves();
+            
+            for (let move of moves) {
+                // 1. 상대방이 승리할 수 있는지 체크 (4목 방어)
+                this.board[move.row][move.col] = 1;
+                if (this.checkWin(move.row, move.col)) {
+                    this.board[move.row][move.col] = 0;
+                    return move;
+                }
+                this.board[move.row][move.col] = 0;
+
+                // 2. AI가 승리할 수 있는지 체크
+                this.board[move.row][move.col] = 2;
+                if (this.checkWin(move.row, move.col)) {
+                    this.board[move.row][move.col] = 0;
+                    return move;
+                }
+                this.board[move.row][move.col] = 0;
+            }
+
+            // 3. 위험한 3목 패턴 체크
+            for (let move of moves) {
+                const threatLevel = this.checkThreats(move.row, move.col, 1);
+                if (threatLevel >= 5000) {
+                    return move;
+                }
+            }
+
+            return null;
+        }
+
+        // 위협 레벨을 체크하는 함수
+        checkThreats(row, col, player) {
+            const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
+            let maxThreat = 0;
+
+            for (let [dx, dy] of directions) {
+                let threat = 0;
+                let count = 0;
+                let openEnds = 0;
+
+                // 한쪽 방향으로 체크
+                let blocked1 = false;
+                for (let i = 1; i <= 4; i++) {
+                    const newRow = row + dx * i;
+                    const newCol = col + dy * i;
+                    
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize) {
+                        blocked1 = true;
+                        break;
+                    }
+                    
+                    if (this.board[newRow][newCol] === player) {
+                        count++;
+                    } else if (this.board[newRow][newCol] === 0) {
+                        if (i === 1) openEnds++;
+                        break;
+                    } else {
+                        blocked1 = true;
+                        break;
+                    }
+                }
+
+                // 반대쪽 방향으로 체크
+                let blocked2 = false;
+                for (let i = 1; i <= 4; i++) {
+                    const newRow = row - dx * i;
+                    const newCol = col - dy * i;
+                    
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize) {
+                        blocked2 = true;
+                        break;
+                    }
+                    
+                    if (this.board[newRow][newCol] === player) {
+                        count++;
+                    } else if (this.board[newRow][newCol] === 0) {
+                        if (i === 1) openEnds++;
+                        break;
+                    } else {
+                        blocked2 = true;
+                        break;
+                    }
+                }
+
+                // 위협도 계산
+                if (count >= 3) {
+                    if (!blocked1 && !blocked2) {
+                        threat = 10000; // 양쪽 열린 3목 - 매우 위험
+                    } else if (!blocked1 || !blocked2) {
+                        threat = 5000; // 한쪽 열린 3목 - 위험
+                    } else {
+                        threat = 1000; // 막힌 3목
+                    }
+                } else if (count >= 2) {
+                    if (openEnds >= 2) {
+                        threat = 500; // 양쪽 열린 2목
+                    } else if (openEnds >= 1) {
+                        threat = 100; // 한쪽 열린 2목
+                    }
+                }
+
+                maxThreat = Math.max(maxThreat, threat);
+            }
+
+            return maxThreat;
+        }
+
         evaluateMove(row, col) {
             let score = 0;
 
             // AI(백돌)로 놓았을 때의 점수
             score += this.evaluatePosition(row, col, 2);
             
-            // 상대방(흑돌)을 막는 점수
-            score += this.evaluatePosition(row, col, 1) * 0.9;
+            // 상대방(흑돌)을 막는 점수 - 가중치 증가
+            const blockScore = this.evaluatePosition(row, col, 1) * 1.2;
+            score += blockScore;
+
+            // 위협 체크 추가
+            const threatScore = this.checkThreats(row, col, 1);
+            score += threatScore;
 
             // 중앙 선호도
             const centerDistance = Math.abs(row - 7) + Math.abs(col - 7);
@@ -588,10 +705,7 @@
         }
 
         evaluatePosition(row, col, player) {
-            const directions = [
-                [0, 1], [1, 0], [1, 1], [1, -1]
-            ];
-
+            const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
             let totalScore = 0;
 
             directions.forEach(([dx, dy]) => {
@@ -643,18 +757,18 @@
                     }
                 }
 
-                // 점수 계산
+                // 점수 계산 - 개선된 버전
                 if (count >= 5) {
                     totalScore += 100000; // 승리
                 } else if (count === 4) {
-                    if (openEnds >= 1) totalScore += 10000; // 4목
+                    if (openEnds >= 1) totalScore += 50000; // 4목 - 가중치 증가
                     else totalScore += 1000;
                 } else if (count === 3) {
-                    if (openEnds >= 2) totalScore += 1000; // 활3
-                    else if (openEnds >= 1) totalScore += 100; // 죽3
+                    if (openEnds >= 2) totalScore += 5000; // 활3 - 가중치 대폭 증가
+                    else if (openEnds >= 1) totalScore += 1000; // 죽3 - 가중치 증가
                 } else if (count === 2) {
-                    if (openEnds >= 2) totalScore += 100; // 활2
-                    else if (openEnds >= 1) totalScore += 10;
+                    if (openEnds >= 2) totalScore += 200; // 활2
+                    else if (openEnds >= 1) totalScore += 50;
                 }
             });
 
@@ -684,10 +798,7 @@
         }
 
         checkWin(row, col) {
-            const directions = [
-                [0, 1], [1, 0], [1, 1], [1, -1]
-            ];
-
+            const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
             const player = this.board[row][col];
 
             for (let [dx, dy] of directions) {
@@ -826,7 +937,6 @@
             
             document.getElementById('winner').style.display = 'none';
             document.getElementById('undoBtn').disabled = false;
-            this.updateAIStatus('');
             this.initBoard();
             this.updateDisplay();
         }
@@ -834,16 +944,16 @@
 
     let game;
 
- function resetGame() {
-    // 승리 메시지 지우기
-    const winnerElement = document.getElementById('winner');
-    winnerElement.style.display = 'none';
-    winnerElement.textContent = '';
-    winnerElement.className = 'winner';
-    
-    // 새 게임 생성
-    game = new OmokAI();
-}
+    function resetGame() {
+        // 승리 메시지 지우기
+        const winnerElement = document.getElementById('winner');
+        winnerElement.style.display = 'none';
+        winnerElement.textContent = '';
+        winnerElement.className = 'winner';
+        
+        // 새 게임 생성
+        game = new OmokAI();
+    }
 
     function undoMove() {
         game.undoMove();
