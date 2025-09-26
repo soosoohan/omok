@@ -6,7 +6,7 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);} 
+      function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-4YZHC1G9FN');
     </script>
@@ -271,9 +271,9 @@ h1 {
     color: #666;
     font-size: min(1em, 3.5vw);
     height: 24px;
-    display: flex;                   
-    align-items: center;           
-    justify-content: center;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 @media (max-width: 600px) {
@@ -576,24 +576,36 @@ h1 {
             const moves = this.getAvailableMoves();
             
             for (let move of moves) {
-                // 1. 상대방이 승리할 수 있는지 체크 (4목 방어)
-                this.board[move.row][move.col] = 1;
-                if (this.checkWin(move.row, move.col)) {
-                    this.board[move.row][move.col] = 0;
-                    return move;
-                }
-                this.board[move.row][move.col] = 0;
-
-                // 2. AI가 승리할 수 있는지 체크
+                // 1. AI가 승리할 수 있는지 체크 (5목 완성)
                 this.board[move.row][move.col] = 2;
                 if (this.checkWin(move.row, move.col)) {
                     this.board[move.row][move.col] = 0;
-                    return move;
+                    return move; // 승리 수 - 최우선
                 }
                 this.board[move.row][move.col] = 0;
+
+                // 2. AI가 4목을 만들 수 있는지 체크
+                if (this.canMakeFour(move.row, move.col, 2)) {
+                    return move; // 4목 만들기 - 거의 승리 확정
+                }
+            }
+            
+            for (let move of moves) {
+                // 3. 상대방이 승리할 수 있는지 체크 (5목 방어)
+                this.board[move.row][move.col] = 1;
+                if (this.checkWin(move.row, move.col)) {
+                    this.board[move.row][move.col] = 0;
+                    return move; // 즉시 막아야 함
+                }
+                this.board[move.row][move.col] = 0;
+
+                // 4. 상대방이 4목을 만들 수 있는지 체크
+                if (this.canMakeFour(move.row, move.col, 1)) {
+                    return move; // 4목 막기
+                }
             }
 
-            // 3. 위험한 3목 패턴 체크
+            // 5. 위험한 3목 패턴 체크
             for (let move of moves) {
                 const threatLevel = this.checkThreats(move.row, move.col, 1);
                 if (threatLevel >= 5000) {
@@ -602,6 +614,63 @@ h1 {
             }
 
             return null;
+        }
+
+        // 4목을 만들 수 있는지 체크하는 새로운 함수
+        canMakeFour(row, col, player) {
+            const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
+            
+            for (let [dx, dy] of directions) {
+                let count = 1;
+                let openEnds = 0;
+                
+                // 한쪽 방향 체크
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row + dx * i;
+                    const newCol = col + dy * i;
+                    
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize) {
+                        break;
+                    }
+                    
+                    if (this.board[newRow][newCol] === player) {
+                        count++;
+                    } else if (this.board[newRow][newCol] === 0) {
+                        openEnds++;
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // 반대쪽 방향 체크
+                for (let i = 1; i < 5; i++) {
+                    const newRow = row - dx * i;
+                    const newCol = col - dy * i;
+                    
+                    if (newRow < 0 || newRow >= this.boardSize || 
+                        newCol < 0 || newCol >= this.boardSize) {
+                        break;
+                    }
+                    
+                    if (this.board[newRow][newCol] === player) {
+                        count++;
+                    } else if (this.board[newRow][newCol] === 0) {
+                        openEnds++;
+                        break;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // 4목 조건: 4개 연속 + 최소 한쪽은 열려있음
+                if (count === 4 && openEnds >= 1) {
+                    return true;
+                }
+            }
+            
+            return false;
         }
 
         // 위협 레벨을 체크하는 함수
