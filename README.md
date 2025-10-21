@@ -53,7 +53,7 @@ You can choose to play against the computer at three different skill levels:
 
 ---
 
-## 🌟 About Soosooland
+## 🌟 About Soosooland - Puzzle Game Hub 
 
 > "Learning through fun, and fun through learning."
 
