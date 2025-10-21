@@ -49,18 +49,22 @@ You can choose to play against the computer at three different skill levels:
   Choose your difficulty level and challenge the AI!
 
 ---
+#  Omok Site : https://soosooland.com/omok/
+
+---
 
 ## 🌟 About Soosooland
 
 > "Learning through fun, and fun through learning."
 
-Explore more brain games and puzzles in **[Soosooland](https://soosoohan.github.io/soosooland/)** — a digital playground designed to improve memory, logic, and creativity while having fun!
+Explore more brain games and puzzles in **[Soosooland](https://soosooland.com/)**    
+— a digital playground designed to improve memory, logic, and creativity while having fun!
 
 ---
 
 ## 📝 Credits
 
-Made with ❤️ by [Han Soosoo](https://github.com/soosoohan)  
+Made with ❤️ by Han Soosoo  
 This version of Omok is designed for simple, clean fun and mental exercise.
 
 ---
