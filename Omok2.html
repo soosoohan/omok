@@ -55,6 +55,25 @@
     box-sizing: border-box;
     position: relative;
 }
+.back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 10px;      /* 모바일 기본 */
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #ad8e65;
+    color: #2e261c;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+.back-button:hover {
+    background-color: #1baf8f;
+    color: #fff;
+}
 
 h1 {
     text-align: center;
@@ -314,7 +333,8 @@ h1 {
 
 </head>
 <body>
-    <div class="game-container">
+  <button class="back-button"  onclick="location.href='index.html'">←</button>
+  <div class="game-container">
         <div class="language-toggle">
             <button class="language-button active" onclick="toggleLanguage('ko')">한국어</button>
             <button class="language-button" onclick="toggleLanguage('en')">English</button>
@@ -373,7 +393,6 @@ h1 {
 <div class="controls">
     <button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작<br>↻ Restart</button>
     <button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기<br>↶ Take Back</button>
-    <button onclick="location.href='index.html'" class="btn">← 뒤로 가기<br>← Back</button>
 </div>
 
 
