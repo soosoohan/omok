@@ -364,11 +364,12 @@ h3 {
             <span class="player-indicator black"></span>
             <span id="currentPlayerText-ko">당신 차례 (흑돌)</span>
         </div>
+    </div>
+    
     <div class="controls">
-    <button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작</button>
-    <button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기</button>
-</div>
-</div>
+        <button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작</button>
+        <button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기</button>
+    </div>
 </div>
 
 <!-- 영어 콘텐츠 -->
@@ -388,11 +389,12 @@ h3 {
             <span class="player-indicator black"></span>
             <span id="currentPlayerText-en">Your turn (black stone)</span>
         </div>
+    </div>
+    
     <div class="controls">
-    <button class="btn" onclick="resetGame()" id="newGameBtn">↻ Restart</button>
-    <button class="btn" onclick="undoMove()" id="undoBtn">↶ Take Back</button>
-</div>
-</div>
+        <button class="btn" onclick="resetGame()" id="newGameBtn">↻ Restart</button>
+        <button class="btn" onclick="undoMove()" id="undoBtn">↶ Take Back</button>
+    </div>
 </div>
 
 <div class="board-container">
@@ -946,6 +948,10 @@ h3 {
 
         endGame() {
             this.gameOver = true;
+            
+            // 현재 플레이어 표시 숨기기
+            document.querySelectorAll('.game-info').forEach(el => el.style.display = 'none');
+            
             const winner = currentLanguage === 'ko' ? 
                 (this.currentPlayer === 1 ? '당신' : '컴퓨터') :
                 (this.currentPlayer === 1 ? 'You' : 'Computer');
@@ -955,7 +961,11 @@ h3 {
             winnerElement.textContent = `🎉 ${winner} ${winText} 🎉`;
             winnerElement.className = `winner ${this.currentPlayer === 1 ? 'player-wins' : 'ai-wins'}`;
             winnerElement.style.display = 'block';
-            this.updateDisplay();
+            
+            // 3초 후 자동으로 리셋
+            setTimeout(() => {
+                this.resetGame();
+            }, 3000);
         }
 
         updateDisplay() {
@@ -967,32 +977,32 @@ h3 {
         }
 
         updateDisplayLanguage(){
-  if (currentLanguage === 'ko'){
-    const indicator = document.querySelector('#korean-content .player-indicator');
-    const el = document.getElementById('currentPlayerText-ko');
-    if (el && indicator){
-      if (this.currentPlayer === 1){
-        el.textContent = '흑돌 차례';
-        indicator.className = 'player-indicator black';
-      } else {
-        el.textContent = '백돌 차례';
-        indicator.className = 'player-indicator white';
-      }
-    }
-  } else {
-    const indicator = document.querySelector('#english-content .player-indicator');
-    const el = document.getElementById('currentPlayerText-en');
-    if (el && indicator){
-      if (this.currentPlayer === 1){
-        el.textContent = 'Black to move';
-        indicator.className = 'player-indicator black';
-      } else {
-        el.textContent = 'White to move';
-        indicator.className = 'player-indicator white';
-      }
-    }
-  }
-}
+            if (currentLanguage === 'ko'){
+                const indicator = document.querySelector('#korean-content .player-indicator');
+                const el = document.getElementById('currentPlayerText-ko');
+                if (el && indicator){
+                    if (this.currentPlayer === 1){
+                        el.textContent = '당신 차례 (흑돌)';
+                        indicator.className = 'player-indicator black';
+                    } else {
+                        el.textContent = '컴퓨터 차례 (백돌)';
+                        indicator.className = 'player-indicator white';
+                    }
+                }
+            } else {
+                const indicator = document.querySelector('#english-content .player-indicator');
+                const el = document.getElementById('currentPlayerText-en');
+                if (el && indicator){
+                    if (this.currentPlayer === 1){
+                        el.textContent = 'Your turn (black stone)';
+                        indicator.className = 'player-indicator black';
+                    } else {
+                        el.textContent = 'Computer turn (white stone)';
+                        indicator.className = 'player-indicator white';
+                    }
+                }
+            }
+        }
 
         updateAIStatus(message) {
             document.getElementById('aiStatus').innerHTML = message;
@@ -1019,6 +1029,12 @@ h3 {
                 return;
             }
 
+            // 게임 끝났을 때 무르기: 승리 메시지 숨기기
+            document.getElementById('winner').style.display = 'none';
+            
+            // 현재 플레이어 표시 다시 보이기
+            document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
+
             // 사람의 수와 AI의 수를 모두 되돌림
             for (let i = 0; i < 2 && this.moveHistory.length > 0; i++) {
                 const lastMove = this.moveHistory.pop();
@@ -1032,6 +1048,7 @@ h3 {
             }
 
             this.currentPlayer = 1; // 사람 차례로
+            this.gameOver = false;
             this.updateDisplay();
         }
 
@@ -1048,6 +1065,10 @@ h3 {
             
             document.getElementById('winner').style.display = 'none';
             document.getElementById('undoBtn').disabled = false;
+            
+            // 현재 플레이어 표시 다시 보이기
+            document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
+            
             this.initBoard();
             this.updateDisplay();
         }
