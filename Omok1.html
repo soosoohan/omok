@@ -455,36 +455,43 @@
       return false;
     }
 
-    endGame(){
-      this.gameOver = true;
-      const winnerEl = document.getElementById('winner');
-      const isBlack = this.currentPlayer === 1;
-      if (currentLanguage === 'ko') {
-        winnerEl.textContent = `🎉 ${isBlack ? '흑돌' : '백돌'} 승리! 🎉`;
-      } else {
-        winnerEl.textContent = `🎉 ${isBlack ? 'Black' : 'White'} wins! 🎉`;
-      }
-      winnerEl.className = `winner ${isBlack ? 'black-wins' : 'white-wins'}`;
-      winnerEl.style.display = 'block';
-    }
-
+endGame(){
+  this.gameOver = true;
+  const winnerEl = document.getElementById('winner');
+  const isBlack = this.currentPlayer === 1;
+  if (currentLanguage === 'ko') {
+    winnerEl.textContent = `🎉 ${isBlack ? '흑돌' : '백돌'} 승리! 🎉`;
+  } else {
+    winnerEl.textContent = `🎉 ${isBlack ? 'Black' : 'White'} wins! 🎉`;
+  }
+  winnerEl.className = `winner ${isBlack ? 'black-wins' : 'white-wins'}`;
+  winnerEl.style.display = 'block';
+  
+  // 3초 후 자동으로 리셋
+  setTimeout(() => {
+    this.reset();
+  }, 3000);
+}
     undo(){
-      if (this.moveHistory.length === 0 || this.gameOver === true && this.moveHistory.length === 0) return;
+  if (this.moveHistory.length === 0 || this.gameOver === true && this.moveHistory.length === 0) return;
 
-      // 게임 끝났어도 무르기 가능: 메시지만 가림
-      document.getElementById('winner').style.display = 'none';
+  // 게임 끝났어도 무르기 가능: 메시지만 가림
+  document.getElementById('winner').style.display = 'none';
+  
+  // 현재 플레이어 표시 다시 보이기
+  document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
 
-      const last = this.moveHistory.pop();
-      this.board[last.row][last.col] = 0;
+  const last = this.moveHistory.pop();
+  this.board[last.row][last.col] = 0;
 
-      const intersection = document.querySelector(`[data-row="${last.row}"][data-col="${last.col}"]`);
-      const stone = intersection.querySelector('.stone');
-      if (stone) stone.remove();
+  const intersection = document.querySelector(`[data-row="${last.row}"][data-col="${last.col}"]`);
+  const stone = intersection.querySelector('.stone');
+  if (stone) stone.remove();
 
-      this.gameOver = false;
-      this.currentPlayer = last.player; // 방금 둔 쪽의 차례로 복귀
-      this.updateDisplayLanguage();
-    }
+  this.gameOver = false;
+  this.currentPlayer = last.player; // 방금 둔 쪽의 차례로 복귀
+  this.updateDisplayLanguage();
+}
 
 updateDisplayLanguage(){
   if (currentLanguage === 'ko'){
@@ -513,18 +520,25 @@ updateDisplayLanguage(){
     }
   }
 }
-    reset(){
-      this.board = Array.from({length: this.boardSize}, () => Array(this.boardSize).fill(0));
-      this.currentPlayer = 1;
-      this.gameOver = false;
-      this.moveHistory = [];
-      const winnerEl = document.getElementById('winner');
-      winnerEl.style.display = 'none';
-      winnerEl.textContent = '';
-      winnerEl.className = 'winner';
-      this.initBoard();
-      this.updateDisplayLanguage();
-    }
+    
+reset(){
+  this.board = Array.from({length: this.boardSize}, () => Array(this.boardSize).fill(0));
+  this.currentPlayer = 1;
+  this.gameOver = false;
+  this.moveHistory = [];
+  
+  // 현재 플레이어 표시 다시 보이기
+  document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
+  
+  const winnerEl = document.getElementById('winner');
+  winnerEl.style.display = 'none';
+  winnerEl.textContent = '';
+  winnerEl.className = 'winner';
+  this.initBoard();
+  this.updateDisplayLanguage();
+}
+
+
   }
 
   let game;
