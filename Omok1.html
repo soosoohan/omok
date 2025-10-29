@@ -1,32 +1,10 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-   <!-- Google tag (gtag.js) -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
-   <script>
-     window.dataLayer = window.dataLayer || [];
-     function gtag(){dataLayer.push(arguments);}
-     gtag('js', new Date());
-     gtag('config', 'G-4YZHC1G9FN');
-   </script>
-
+   
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>오목 2인 대결 - 친구와 함께하는 오목 게임 | Soosooland</title>
-   
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="친구와 함께 즐기는 2인용 오목 게임! 15×15 바둑판에서 5개를 먼저 연결하세요. 전통 보드 게임을 온라인으로.">
-    <meta name="keywords" content="오목, 2인용오목, 오목게임, 친구와게임, 보드게임, 전략게임, gomoku, omok, two player, 바둑판게임">
-    <meta name="author" content="Soosooland">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="오목 2인 대결 - 친구와 함께하는 오목 게임">
-    <meta property="og:description" content="친구와 함께 즐기는 2인용 오목! 5개를 먼저 연결하세요">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://soosooland.com/omok/Omok1.html">
-    <meta property="og:image" content="https://soosooland.com/images/omok.jpeg">
-    <meta property="og:site_name" content="Soosooland">
-    <link rel="canonical" href="https://soosooland.com/omok/Omok1.html">
    
     <style>
      body {
@@ -41,7 +19,25 @@
        justify-content: flex-start;
        overflow-x: auto;
      }
-
+ .back-button {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 10px;      /* 모바일 기본 */
+    font-size: 1.5em;
+    font-weight: bold;
+    background-color: #ad8e65;
+    color: #2e261c;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+.back-button:hover {
+    background-color: #1baf8f;
+    color: #fff;
+}
      .game-container {
        background: #deb887;
        border-radius: 20px;
@@ -59,6 +55,12 @@
        color: #333;
        margin-bottom: 15px;
        font-size: clamp(1.3rem, 3.7vw, 1.9rem);
+     }
+ 
+     h3 {
+       text-align: center;
+       color: #555;
+       margin: 10px 0;
      }
 
      .language-toggle {
@@ -236,7 +238,8 @@
    </style>
 </head>
 <body>
-  <div class="game-container">
+ <button class="back-button"  onclick="location.href='index.html'">←</button>
+ <div class="game-container">
     <div class="language-toggle">
       <button class="language-button active" onclick="toggleLanguage('ko', event)">한국어</button>
       <button class="language-button" onclick="toggleLanguage('en', event)">English</button>
@@ -253,6 +256,10 @@
           <span id="currentPlayerText-ko">흑돌 차례</span>
         </div>
       </div>
+      <div class="controls">
+      <button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작</button>
+      <button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기</button>
+      </div>
     </div>
 
     <!-- 영어 콘텐츠 -->
@@ -264,6 +271,10 @@
           <span id="currentPlayerText-en">Black to move</span>
         </div>
       </div>
+      <div class="controls">
+      <button class="btn" onclick="resetGame()" id="newGameBtn">↻ Restart</button>
+      <button class="btn" onclick="undoMove()" id="undoBtn">↶ Take Back</button>
+      </div>
     </div>
 
     <div class="board-container">
@@ -274,11 +285,7 @@
 
     <div id="winner" class="winner" style="display:none;"></div>
 
-    <div class="controls">
-      <button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작<br>↻ Restart</button>
-      <button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기<br>↶ Take Back</button>
-      <button onclick="location.href='index.html'" class="btn">← 뒤로 가기<br>← Back</button>
-    </div>
+    
   </div>
 
 <script>
@@ -457,33 +464,33 @@
       this.updateDisplayLanguage();
     }
 
-    updateDisplayLanguage(){
-      const indicator = document.querySelector('.player-indicator');
-      if (currentLanguage === 'ko'){
-        const el = document.getElementById('currentPlayerText-ko');
-        if (el){
-          if (this.currentPlayer === 1){
-            el.textContent = '흑돌 차례';
-            indicator.className = 'player-indicator black';
-          } else {
-            el.textContent = '백돌 차례';
-            indicator.className = 'player-indicator white';
-          }
-        }
+updateDisplayLanguage(){
+  if (currentLanguage === 'ko'){
+    const indicator = document.querySelector('#korean-content .player-indicator');
+    const el = document.getElementById('currentPlayerText-ko');
+    if (el && indicator){
+      if (this.currentPlayer === 1){
+        el.textContent = '흑돌 차례';
+        indicator.className = 'player-indicator black';
       } else {
-        const el = document.getElementById('currentPlayerText-en');
-        if (el){
-          if (this.currentPlayer === 1){
-            el.textContent = 'Black to move';
-            indicator.className = 'player-indicator black';
-          } else {
-            el.textContent = 'White to move';
-            indicator.className = 'player-indicator white';
-          }
-        }
+        el.textContent = '백돌 차례';
+        indicator.className = 'player-indicator white';
       }
     }
-
+  } else {
+    const indicator = document.querySelector('#english-content .player-indicator');
+    const el = document.getElementById('currentPlayerText-en');
+    if (el && indicator){
+      if (this.currentPlayer === 1){
+        el.textContent = 'Black to move';
+        indicator.className = 'player-indicator black';
+      } else {
+        el.textContent = 'White to move';
+        indicator.className = 'player-indicator white';
+      }
+    }
+  }
+}
     reset(){
       this.board = Array.from({length: this.boardSize}, () => Array(this.boardSize).fill(0));
       this.currentPlayer = 1;
