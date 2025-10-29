@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
- <!-- Google tag (gtag.js) -->
-   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
-   <script>
-     window.dataLayer = window.dataLayer || [];
-     function gtag(){dataLayer.push(arguments);}
-     gtag('js', new Date());
-     gtag('config', 'G-4YZHC1G9FN');
-   </script>
+   <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4YZHC1G9FN');
+    </script>
 
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>오목 2인 대결 - 친구와 함께하는 오목 게임 | Soosooland</title>
-   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오목 AI 대결 - 컴퓨터와 오목 게임 (3단계 난이도) | Soosooland</title>
+    
     <!-- SEO Meta Tags -->
-    <meta name="description" content="친구와 함께 즐기는 2인용 오목 게임! 15×15 바둑판에서 5개를 먼저 연결하세요. 전통 보드 게임을 온라인으로.">
-    <meta name="keywords" content="오목, 2인용오목, 오목게임, 친구와게임, 보드게임, 전략게임, gomoku, omok, two player, 바둑판게임">
+    <meta name="description" content="AI 컴퓨터와 오목 대결! 초급/중급/고급 3단계 난이도 선택. 혼자서 즐기는 전략 보드 게임. 두뇌 훈련과 사고력 향상.">
+    <meta name="keywords" content="오목AI, 컴퓨터오목, 오목게임, AI대결, 인공지능오목, 1인용오목, 보드게임, 전략게임, gomoku AI, omok computer, 치매예방">
     <meta name="author" content="Soosooland">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="오목 2인 대결 - 친구와 함께하는 오목 게임">
-    <meta property="og:description" content="친구와 함께 즐기는 2인용 오목! 5개를 먼저 연결하세요">
+    <meta property="og:title" content="오목 AI 대결 - 컴퓨터와 오목 게임">
+    <meta property="og:description" content="AI 컴퓨터와 오목 대결! 초급/중급/고급 3단계 난이도">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://soosooland.com/omok/Omok1.html">
+    <meta property="og:url" content="https://soosooland.com/omok/Omok2.html">
     <meta property="og:image" content="https://soosooland.com/images/omok.jpeg">
     <meta property="og:site_name" content="Soosooland">
-    <link rel="canonical" href="https://soosooland.com/omok/Omok1.html">
+    <link rel="canonical" href="https://soosooland.com/omok/Omok2.html">
    
     <style>
      body {
@@ -78,7 +78,7 @@
        margin-bottom: 15px;
        font-size: clamp(1.3rem, 3.7vw, 1.9rem);
      }
- 
+
      h3 {
        text-align: center;
        color: #555;
@@ -455,90 +455,94 @@
       return false;
     }
 
-endGame(){
-  this.gameOver = true;
-  const winnerEl = document.getElementById('winner');
-  const isBlack = this.currentPlayer === 1;
-  if (currentLanguage === 'ko') {
-    winnerEl.textContent = `🎉 ${isBlack ? '흑돌' : '백돌'} 승리! 🎉`;
-  } else {
-    winnerEl.textContent = `🎉 ${isBlack ? 'Black' : 'White'} wins! 🎉`;
-  }
-  winnerEl.className = `winner ${isBlack ? 'black-wins' : 'white-wins'}`;
-  winnerEl.style.display = 'block';
-  
-  // 3초 후 자동으로 리셋
-  setTimeout(() => {
-    this.reset();
-  }, 3000);
-}
+    endGame(){
+      this.gameOver = true;
+      
+      // 현재 플레이어 표시 숨기기
+      document.querySelectorAll('.game-info').forEach(el => el.style.display = 'none');
+      
+      const winnerEl = document.getElementById('winner');
+      const isBlack = this.currentPlayer === 1;
+      if (currentLanguage === 'ko') {
+        winnerEl.textContent = `🎉 ${isBlack ? '흑돌' : '백돌'} 승리! 🎉`;
+      } else {
+        winnerEl.textContent = `🎉 ${isBlack ? 'Black' : 'White'} wins! 🎉`;
+      }
+      winnerEl.className = `winner ${isBlack ? 'black-wins' : 'white-wins'}`;
+      winnerEl.style.display = 'block';
+      
+      // 3초 후 자동으로 리셋
+      setTimeout(() => {
+        this.reset();
+      }, 3000);
+    }
+
     undo(){
-  if (this.moveHistory.length === 0 || this.gameOver === true && this.moveHistory.length === 0) return;
+      if (this.moveHistory.length === 0) return;
 
-  // 게임 끝났어도 무르기 가능: 메시지만 가림
-  document.getElementById('winner').style.display = 'none';
-  
-  // 현재 플레이어 표시 다시 보이기
-  document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
+      // 게임 끝났어도 무르기 가능: 메시지만 가림
+      document.getElementById('winner').style.display = 'none';
+      
+      // 현재 플레이어 표시 다시 보이기
+      document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
 
-  const last = this.moveHistory.pop();
-  this.board[last.row][last.col] = 0;
+      const last = this.moveHistory.pop();
+      this.board[last.row][last.col] = 0;
 
-  const intersection = document.querySelector(`[data-row="${last.row}"][data-col="${last.col}"]`);
-  const stone = intersection.querySelector('.stone');
-  if (stone) stone.remove();
+      const intersection = document.querySelector(`[data-row="${last.row}"][data-col="${last.col}"]`);
+      const stone = intersection.querySelector('.stone');
+      if (stone) stone.remove();
 
-  this.gameOver = false;
-  this.currentPlayer = last.player; // 방금 둔 쪽의 차례로 복귀
-  this.updateDisplayLanguage();
-}
+      this.gameOver = false;
+      this.currentPlayer = last.player; // 방금 둔 쪽의 차례로 복귀
+      this.updateDisplayLanguage();
+    }
 
-updateDisplayLanguage(){
-  if (currentLanguage === 'ko'){
-    const indicator = document.querySelector('#korean-content .player-indicator');
-    const el = document.getElementById('currentPlayerText-ko');
-    if (el && indicator){
-      if (this.currentPlayer === 1){
-        el.textContent = '흑돌 차례';
-        indicator.className = 'player-indicator black';
+    updateDisplayLanguage(){
+      if (currentLanguage === 'ko'){
+        const indicator = document.querySelector('#korean-content .player-indicator');
+        const el = document.getElementById('currentPlayerText-ko');
+        if (el && indicator){
+          if (this.currentPlayer === 1){
+            el.textContent = '흑돌 차례';
+            indicator.className = 'player-indicator black';
+          } else {
+            el.textContent = '백돌 차례';
+            indicator.className = 'player-indicator white';
+          }
+        }
       } else {
-        el.textContent = '백돌 차례';
-        indicator.className = 'player-indicator white';
+        const indicator = document.querySelector('#english-content .player-indicator');
+        const el = document.getElementById('currentPlayerText-en');
+        if (el && indicator){
+          if (this.currentPlayer === 1){
+            el.textContent = 'Black to move';
+            indicator.className = 'player-indicator black';
+          } else {
+            el.textContent = 'White to move';
+            indicator.className = 'player-indicator white';
+          }
+        }
       }
     }
-  } else {
-    const indicator = document.querySelector('#english-content .player-indicator');
-    const el = document.getElementById('currentPlayerText-en');
-    if (el && indicator){
-      if (this.currentPlayer === 1){
-        el.textContent = 'Black to move';
-        indicator.className = 'player-indicator black';
-      } else {
-        el.textContent = 'White to move';
-        indicator.className = 'player-indicator white';
-      }
+
+    reset(){
+      this.board = Array.from({length: this.boardSize}, () => Array(this.boardSize).fill(0));
+      this.currentPlayer = 1;
+      this.gameOver = false;
+      this.moveHistory = [];
+      
+      const winnerEl = document.getElementById('winner');
+      winnerEl.style.display = 'none';
+      winnerEl.textContent = '';
+      winnerEl.className = 'winner';
+      
+      // 현재 플레이어 표시 다시 보이기
+      document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
+      
+      this.initBoard();
+      this.updateDisplayLanguage();
     }
-  }
-}
-    
-reset(){
-  this.board = Array.from({length: this.boardSize}, () => Array(this.boardSize).fill(0));
-  this.currentPlayer = 1;
-  this.gameOver = false;
-  this.moveHistory = [];
-  
-  // 현재 플레이어 표시 다시 보이기
-  document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
-  
-  const winnerEl = document.getElementById('winner');
-  winnerEl.style.display = 'none';
-  winnerEl.textContent = '';
-  winnerEl.className = 'winner';
-  this.initBoard();
-  this.updateDisplayLanguage();
-}
-
-
   }
 
   let game;
