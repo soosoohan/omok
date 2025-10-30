@@ -1,11 +1,8 @@
-# ⚠️ 안내
-본 저장소의 소스코드와 자료는 작성자(수수)의 허락 없이 **복사·수정·배포·상업적 이용**할 수 없습니다.  
-이 저장소는 오픈소스가 아니며, 교육 및 참고 목적으로만 열람 가능합니다.
-
 # 🏯 OMOK - Traditional Strategy Game
 
-한, 중, 일의 전통놀이  오목입니다.   
-**Omok** is a classic board game enjoyed in **Korea, China, and Japan**.     
+한중일의 고전게임 , 2000년이 넘은 역사, 오목입니다.    
+A classic game from Korea, China, and Japan with over 2,000 years of history - it’s Gomoku (Five in a Row).    
+
 The word *Omok* comes from Korean:  
 **"O" (오, five) + "Mok" (목, point)** — your goal is to make exactly five in a row!
 
@@ -20,14 +17,31 @@ Place **five stones in a row** — horizontally, vertically, or diagonally — t
 
 ## 📋 Game Rules
 
-- Two players take turns placing **black and white stones**.
-- The game is played on a **15×15 grid**, and stones are placed on the intersections.
-- The goal is to make a straight line of **exactly five** stones.
-- If a line has more than five (called "overline"), it does **not** count as a win.
-- Once placed, stones stay on the board.
-- You can **take back** your last move using the **Take Back** button.
-- The game ends immediately when a player forms a line of 5.
 
+두 사람이 대결하거나 컴퓨터와 대결할 수 있습니다.   
+You can play against another person or against the computer.  
+
+검은 돌과 흰 돌이 있으며 두 선수는 교대로 돌을 한 개씩 놓습니다.  
+Two players take turns placing black and white stones.  
+
+가로, 세로, 대각선으로 5개의 돌을 놓는 것이 목표입니다.   
+The goal is to make a straight line of exactly 5 stones—horizontally, vertically, or diagonally.  
+
+15x15의 격자에서 교차점에 돌을 놓습니다.  
+The board is 15×15, and stones go on the intersections.  
+
+놓은 돌은 움직이지 않아요.  
+Once placed, stones stay in place   
+
+무르기 버튼으로 무를 수 있습니다.  
+you can undo your last move using the <strong>Take Back</strong> button.  
+
+5개의 돌이 한 줄이 되면 게임이 끝납니다.  
+The game ends immediately when a player forms a line of 5.  
+
+여러분은 서로 다른 실력의 컴퓨터와 대결할 수 있습니다.  
+You can play against the computer with different difficulty levels.  
+                
 ---
 
 ## 🤖 About the Computer Opponent
