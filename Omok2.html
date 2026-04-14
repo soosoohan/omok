@@ -373,80 +373,77 @@ h1 {
 </head>
 <body>
   <button class="back-button"  onclick="location.href='index.html'">←</button>
-  <div class="game-container">
-        <div class="language-toggle">
+<div class="game-container">
+   <div class="language-toggle">
             <button class="language-button active" onclick="toggleLanguage('ko')">한국어</button>
             <button class="language-button" onclick="toggleLanguage('en')">English</button>
-        </div>
+   </div>
 
 <h1 id="gameTitle">오목 vs 컴퓨터</h1>
 
 <!-- 한국어 콘텐츠 -->
 
-<div id="korean-content">
-    <h3>돌 5개를 한 줄로 놓으면 이깁니다.</h3>
+   <div id="korean-content">
+     <h3>돌 5개를 한 줄로 놓으면 이깁니다.</h3>
 
-<div class="difficulty-selector">
+      <div class="difficulty-selector">
     <label>컴퓨터의 실력을 선택하면 주황색으로 변해요.</label><br>
     <button class="difficulty-btn active" onclick="setDifficulty('easy')">하수</button>
     <button class="difficulty-btn" onclick="setDifficulty('medium')">중수</button>
     <button class="difficulty-btn" onclick="setDifficulty('hard')">고수</button>
     <button class="difficulty-btn master-btn" onclick="setDifficulty('master')">달인</button>
-    <div class="master-notice" id="masterNotice-ko">⚫ 달인 모드: 컴퓨터가 흑돌로 먼저 둡니다!</div>
-</div>
+      <div class="master-notice" id="masterNotice-ko">⚫ 달인 모드: 컴퓨터가 흑돌로 먼저 둡니다!</div>
+      </div>
 
-<div class="game-info">
-    <div class="current-player">
+      <div class="game-info">
+         <div class="current-player">
         <span class="player-indicator black"></span>
         <span id="currentPlayerText-ko">당신 차례 (흑돌)</span>
-    </div>
-</div>
+         </div>
+      </div>
 
-<div class="controls">
+      <div class="controls">
     <button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작</button>
     <button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기</button>
-</div>
-
-</div>
+      </div>
+   </div>
 
 <!-- 영어 콘텐츠 -->
 
-<div id="english-content" class="hidden">
-    <h3>Get 5 stones in a row to win!</h3>
+   <div id="english-content" class="hidden">
+      <h3>Get 5 stones in a row to win!</h3>
 
-<div class="difficulty-selector">
+      <div class="difficulty-selector">
     <label>Choose the computer's skill level.</label><br>
     The selected option will be highlighted in orange.<br>
     <button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
     <button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
     <button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
     <button class="difficulty-btn master-btn" onclick="setDifficulty('master')">Master</button>
-    <div class="master-notice" id="masterNotice-en">⚫ Master mode: Computer plays black and goes first!</div>
-</div>
+      <div class="master-notice" id="masterNotice-en">⚫ Master mode: Computer plays black and goes first!</div>
+      </div>
 
-<div class="game-info">
-    <div class="current-player">
+      <div class="game-info">
+         <div class="current-player">
         <span class="player-indicator black"></span>
         <span id="currentPlayerText-en">Your turn (black stone)</span>
-    </div>
-</div>
+         </div>
+      </div>
 
-<div class="controls">
+      <div class="controls">
     <button class="btn" onclick="resetGame()" id="newGameBtn">↻ Restart</button>
     <button class="btn" onclick="undoMove()" id="undoBtn">↶ Take Back</button>
+      </div>
+   </div>
+   <div class="board-container">
+      <div class="board">
+         <div class="board-grid" id="board"></div>
+      </div>
+   </div>
+   <div id="winner" class="winner" style="display: none;"></div>
 </div>
 
-</div>
 
-<div class="board-container">
-    <div class="board">
-        <div class="board-grid" id="board"></div>
-    </div>
-</div>
-
-<div id="winner" class="winner" style="display: none;"></div>
-
-</div>
 
 <script>
     let currentLanguage = 'ko';
@@ -1228,6 +1225,113 @@ h1 {
         game = new OmokAI();
     });
 </script>
+
+
+
+
+<!-- 수수랜드 게임 추천 배너 - </body> 바로 위에 붙여넣기 -->
+<div style="
+  background-color: #deb887;
+  padding: 10px 16px 24px;
+  text-align: center;
+">
+ 
+   <div style="
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  ">
+
+    <!-- 연산 -->
+    <a href="https://soosooland.com/numzzle" style="
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border-radius: 15px;
+      border: none;
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: bold;
+       min-width: 90px;
+    ">
+      넘즐<br>
+      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
+">연산게임</span>
+    </a>
+
+    <!-- 전략 -->
+    <a href="https://soosooland.com/trinkle" style="
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border-radius: 15px;
+      border: none;
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: bold;
+      min-width: 90px;
+    ">
+      트링클<br>
+      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
+">전략게임</span>
+    </a>
+
+
+    <!-- 논리 -->
+    <a href="https://soosooland.com/yagoo" style="
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border-radius: 15px;
+      border: none;
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: bold;
+      min-width: 90px;
+    ">
+      야구게임<br>
+      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
+">논리게임</span>
+    </a>
+
+    <!-- 학습퀴즈 -->
+    <a href="https://soosooland.com/school" style="
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border-radius: 15px;
+      border: none;
+      padding: 8px 16px;
+      text-decoration: none;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      font-weight: bold;
+      min-width: 90px;
+    ">
+      모음스쿨<br>
+      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
+">학습퀴즈</span>
+    </a>
+
+   </div>
+
+
+
+    <!-- 수수랜드 홈 -->
+   <div style="text-align: center;">
+  <a href="https://soosooland.com" style="
+    display: inline-block;
+    background:#145454;
+    color: white;
+    padding: 8px 24px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    font-weight: bold;
+    letter-spacing: 1px;
+  ">즐거운 퍼즐 놀이터 수수랜드<br> Fun Puzzle Playground Soosooland</a>
+   </div>
+</div>
 
 </body>
 </html>
