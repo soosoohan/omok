@@ -2,14 +2,6 @@
 
 <html lang="ko">
 <head>
-<!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-4YZHC1G9FN');
-    </script>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -458,16 +450,19 @@ h1 {
         });
         event.target.classList.add('active');
 
-        // 콘텐츠 표시/숨김
         if (lang === 'ko') {
-            document.getElementById('korean-content').classList.remove('hidden');
-            document.getElementById('english-content').classList.add('hidden');
-            document.getElementById('gameTitle').textContent = '오목 vs 컴퓨터';
-        } else {
-            document.getElementById('korean-content').classList.add('hidden');
-            document.getElementById('english-content').classList.remove('hidden');
-            document.getElementById('gameTitle').textContent = 'OMOK vs AI';
-        }
+    document.getElementById('korean-content').classList.remove('hidden');
+    document.getElementById('english-content').classList.add('hidden');
+    document.getElementById('gameTitle').textContent = '오목 vs 컴퓨터';
+    document.getElementById('banner-ko').style.display = 'block';
+    document.getElementById('banner-en').style.display = 'none';
+} else {
+    document.getElementById('korean-content').classList.add('hidden');
+    document.getElementById('english-content').classList.remove('hidden');
+    document.getElementById('gameTitle').textContent = 'OMOK vs AI';
+    document.getElementById('banner-ko').style.display = 'none';
+    document.getElementById('banner-en').style.display = 'block';
+}
 
         // 게임이 진행 중이면 현재 상태 업데이트
         if (game) {
@@ -1227,111 +1222,40 @@ h1 {
 </script>
 
 
-
-
-<!-- 수수랜드 게임 추천 배너 - </body> 바로 위에 붙여넣기 -->
-<div style="
-  background-color: #deb887;
-  padding: 10px 16px 24px;
-  text-align: center;
-">
- 
-   <div style="
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 14px;
-  ">
-
-    <!-- 연산 -->
-    <a href="https://soosooland.com/numzzle" style="
-      background: linear-gradient(45deg, #4CAF50, #45a049);
-      color: white;
-      border-radius: 15px;
-      border: none;
-      padding: 8px 16px;
-      text-decoration: none;
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      font-weight: bold;
-       min-width: 90px;
-    ">
-      넘즐<br>
-      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
-">연산게임</span>
-    </a>
-
-    <!-- 전략 -->
-    <a href="https://soosooland.com/trinkle" style="
-      background: linear-gradient(45deg, #4CAF50, #45a049);
-      color: white;
-      border-radius: 15px;
-      border: none;
-      padding: 8px 16px;
-      text-decoration: none;
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      font-weight: bold;
-      min-width: 90px;
-    ">
-      트링클<br>
-      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
-">전략게임</span>
-    </a>
-
-
-    <!-- 논리 -->
-    <a href="https://soosooland.com/yagoo" style="
-      background: linear-gradient(45deg, #4CAF50, #45a049);
-      color: white;
-      border-radius: 15px;
-      border: none;
-      padding: 8px 16px;
-      text-decoration: none;
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      font-weight: bold;
-      min-width: 90px;
-    ">
-      야구게임<br>
-      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
-">논리게임</span>
-    </a>
-
-    <!-- 학습퀴즈 -->
-    <a href="https://soosooland.com/school" style="
-      background: linear-gradient(45deg, #4CAF50, #45a049);
-      color: white;
-      border-radius: 15px;
-      border: none;
-      padding: 8px 16px;
-      text-decoration: none;
-      font-size: clamp(1rem, 3vw, 1.2rem);
-      font-weight: bold;
-      min-width: 90px;
-    ">
-      모음스쿨<br>
-      <span style="font-size: clamp(1rem, 3vw, 1.2rem); color: #fcdeb6;font-weight: bold;
-">학습퀴즈</span>
-    </a>
-
-   </div>
-
-
-
-    <!-- 수수랜드 홈 -->
-   <div style="text-align: center;">
-  <a href="https://soosooland.com" style="
-    display: inline-block;
-    background:#145454;
-    color: white;
-    padding: 8px 24px;
-    border-radius: 15px;
-    text-decoration: none;
-    font-size: clamp(1rem, 3vw, 1.2rem);
-    font-weight: bold;
-    letter-spacing: 1px;
-  ">즐거운 퍼즐 놀이터 수수랜드<br> Fun Puzzle Playground Soosooland</a>
-   </div>
+<!-- 수수랜드 게임 추천 배너 한국어 -->
+<div id="banner-ko" style="background-color:#deb887; padding:10px 16px 24px; text-align:center;">
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:14px;">
+    <a href="https://soosooland.com/numzzle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      넘즐<br><span style="color:#fcdeb6;font-weight:bold;">연산게임</span></a>
+    <a href="https://soosooland.com/trinkle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      트링클<br><span style="color:#fcdeb6;font-weight:bold;">전략게임</span></a>
+    <a href="https://soosooland.com/yagoo/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      야구게임<br><span style="color:#fcdeb6;font-weight:bold;">논리게임</span></a>
+    <a href="https://soosooland.com/school/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      모음스쿨<br><span style="color:#fcdeb6;font-weight:bold;">학습퀴즈</span></a>
+  </div>
+  <div style="text-align:center;">
+    <a href="https://soosooland.com" style="display:inline-block;background:#145454;color:white;padding:8px 24px;border-radius:15px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;letter-spacing:1px;">
+      즐거운 퍼즐 놀이터 수수랜드</a>
+  </div>
 </div>
 
+<!-- 수수랜드 게임 추천 배너 영어 -->
+<div id="banner-en" style="display:none; background-color:#deb887; padding:10px 16px 24px; text-align:center;">
+  <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:14px;">
+    <a href="https://soosooland.com/numzzle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      Numzzle<br><span style="color:#fcdeb6;font-weight:bold;">Math<br>Game</span></a>
+    <a href="https://soosooland.com/trinkle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      Trinkle<br><span style="color:#fcdeb6;font-weight:bold;">Strategy</span></a>
+    <a href="https://soosooland.com/yagoo/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      Baseball<br><span style="color:#fcdeb6;font-weight:bold;">Logic<br>Game</span></a>
+    <a href="https://soosooland.com/school/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
+      Moeum<br>School<br><span style="color:#fcdeb6;font-weight:bold;">Quiz</span></a>
+  </div>
+  <div style="text-align:center;">
+    <a href="https://soosooland.com" style="display:inline-block;background:#145454;color:white;padding:8px 24px;border-radius:15px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;letter-spacing:1px;">
+      Fun Puzzle Playground Soosooland</a>
+  </div>
+</div>
 </body>
 </html>
