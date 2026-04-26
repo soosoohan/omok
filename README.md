@@ -51,7 +51,8 @@ You can choose to play against the computer at three different skill levels:
 - **Beginner (하수)**: Makes occasional mistakes — a good level for practice.
 - **Normal (중수)**: Plays decently — a fair challenge.
 - **Expert (고수)**: Rarely makes mistakes — it's hard to win!
-
+- **Master (달인)**: Computer plays black and goes first!    
+    
 ---
 
 ## 🎮 Game Modes
