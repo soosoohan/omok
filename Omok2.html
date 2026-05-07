@@ -10,17 +10,17 @@
   gtag('js', new Date());
   gtag('config', 'G-4YZHC1G9FN');
 
-  const isLocal = window.location.hostname === 'localhost' || 
-                  window.location.hostname === '127.0.0.1' ||
-                  window.location.hostname.includes('192.168.');
+const isLocal = window.location.hostname === ‘localhost’ ||
+window.location.hostname === ‘127.0.0.1’ ||
+window.location.hostname.includes(‘192.168.’);
 
-  const originalGtag = gtag;
-  function gtag() {
-    if (isLocal) {
-      return;
-    }
-    originalGtag.apply(this, arguments);
-  }
+const originalGtag = gtag;
+function gtag() {
+if (isLocal) {
+return;
+}
+originalGtag.apply(this, arguments);
+}
 </script>
 
 <meta charset="UTF-8">
@@ -28,11 +28,13 @@
 <title>오목 AI 대결 - 컴퓨터와 오목 게임 (4단계 난이도) | Soosooland</title>
 
 <!-- SEO Meta Tags -->
+
 <meta name="description" content="AI 컴퓨터와 오목 대결! 초급/중급/고급/달인 4단계 난이도 선택. 혼자서 즐기는 전략 보드 게임. 두뇌 훈련과 사고력 향상.">
 <meta name="keywords" content="오목AI, 컴퓨터오목, 오목게임, AI대결, 인공지능오목, 1인용오목, 보드게임, 전략게임, gomoku AI, omok computer, 치매예방">
 <meta name="author" content="Soosooland">
 
 <!-- Open Graph -->
+
 <meta property="og:title" content="오목 AI 대결 - 컴퓨터와 오목 게임">
 <meta property="og:description" content="AI 컴퓨터와 오목 대결! 초급/중급/고급/달인 4단계 난이도">
 <meta property="og:type" content="website">
@@ -398,26 +400,29 @@ h1 {
    <div id="korean-content">
      <h3>돌 5개를 한 줄로 놓으면 이깁니다.</h3>
 
-      <div class="difficulty-selector">
-    <label>컴퓨터의 실력을 선택하면 주황색으로 변해요.</label><br>
-    <button class="difficulty-btn active" onclick="setDifficulty('easy')">하수</button>
-    <button class="difficulty-btn" onclick="setDifficulty('medium')">중수</button>
-    <button class="difficulty-btn" onclick="setDifficulty('hard')">고수</button>
-    <button class="difficulty-btn master-btn" onclick="setDifficulty('master')">달인</button>
-      <div class="master-notice" id="masterNotice-ko">⚫ 달인 모드: 컴퓨터가 흑돌로 먼저 둡니다!</div>
-      </div>
+```
+  <div class="difficulty-selector">
+<label>컴퓨터의 실력을 선택하면 주황색으로 변해요.</label><br>
+<button class="difficulty-btn active" onclick="setDifficulty('easy')">하수</button>
+<button class="difficulty-btn" onclick="setDifficulty('medium')">중수</button>
+<button class="difficulty-btn" onclick="setDifficulty('hard')">고수</button>
+<button class="difficulty-btn master-btn" onclick="setDifficulty('master')">달인</button>
+  <div class="master-notice" id="masterNotice-ko">⚫ 달인 모드: 컴퓨터가 흑돌로 먼저 둡니다!</div>
+  </div>
 
-      <div class="game-info">
-         <div class="current-player">
-        <span class="player-indicator black"></span>
-        <span id="currentPlayerText-ko">당신 차례 (흑돌)</span>
-         </div>
-      </div>
+  <div class="game-info">
+     <div class="current-player">
+    <span class="player-indicator black"></span>
+    <span id="currentPlayerText-ko">당신 차례 (흑돌)</span>
+     </div>
+  </div>
 
-      <div class="controls">
-    <button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작</button>
-    <button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기</button>
-      </div>
+  <div class="controls">
+<button class="btn" onclick="resetGame()" id="newGameBtn">↻ 다시 시작</button>
+<button class="btn" onclick="undoMove()" id="undoBtn">↶ 무르기</button>
+  </div>
+```
+
    </div>
 
 <!-- 영어 콘텐츠 -->
@@ -425,27 +430,30 @@ h1 {
    <div id="english-content" class="hidden">
       <h3>Get 5 stones in a row to win!</h3>
 
-      <div class="difficulty-selector">
-    <label>Choose the computer's skill level.</label><br>
-    The selected option will be highlighted in orange.<br>
-    <button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
-    <button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
-    <button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
-    <button class="difficulty-btn master-btn" onclick="setDifficulty('master')">Master</button>
-      <div class="master-notice" id="masterNotice-en">⚫ Master mode: Computer plays black and goes first!</div>
-      </div>
+```
+  <div class="difficulty-selector">
+<label>Choose the computer's skill level.</label><br>
+The selected option will be highlighted in orange.<br>
+<button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
+<button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
+<button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
+<button class="difficulty-btn master-btn" onclick="setDifficulty('master')">Master</button>
+  <div class="master-notice" id="masterNotice-en">⚫ Master mode: Computer plays black and goes first!</div>
+  </div>
 
-      <div class="game-info">
-         <div class="current-player">
-        <span class="player-indicator black"></span>
-        <span id="currentPlayerText-en">Your turn (black stone)</span>
-         </div>
-      </div>
+  <div class="game-info">
+     <div class="current-player">
+    <span class="player-indicator black"></span>
+    <span id="currentPlayerText-en">Your turn (black stone)</span>
+     </div>
+  </div>
 
-      <div class="controls">
-    <button class="btn" onclick="resetGame()" id="newGameBtn">↻ Restart</button>
-    <button class="btn" onclick="undoMove()" id="undoBtn">↶ Take Back</button>
-      </div>
+  <div class="controls">
+<button class="btn" onclick="resetGame()" id="newGameBtn">↻ Restart</button>
+<button class="btn" onclick="undoMove()" id="undoBtn">↶ Take Back</button>
+  </div>
+```
+
    </div>
    <div class="board-container">
       <div class="board">
@@ -454,8 +462,6 @@ h1 {
    </div>
    <div id="winner" class="winner" style="display: none;"></div>
 </div>
-
-
 
 <script>
     let currentLanguage = 'ko';
@@ -1241,8 +1247,8 @@ h1 {
     });
 </script>
 
-
 <!-- 수수랜드 게임 추천 배너 한국어 -->
+
 <div id="banner-ko" style="background-color:#deb887; padding:10px 16px 24px; text-align:center;">
   <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:14px;">
     <a href="https://soosooland.com/numzzle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
@@ -1261,6 +1267,7 @@ h1 {
 </div>
 
 <!-- 수수랜드 게임 추천 배너 영어 -->
+
 <div id="banner-en" style="display:none; background-color:#deb887; padding:10px 16px 24px; text-align:center;">
   <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:14px;">
     <a href="https://soosooland.com/numzzle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
