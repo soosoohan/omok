@@ -739,52 +739,41 @@ h1 {
 
         // 4목을 만들 수 있는지 체크하는 새로운 함수
         canMakeFour(row, col, player) {
-            const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
+    const directions = [[0, 1], [1, 0], [1, 1], [1, -1]];
+    
+    for (let [dx, dy] of directions) {
+        // 이 방향으로 5칸 윈도우가 가능한지 먼저 확인
+        // row,col 기준으로 앞뒤 포함해서 5칸 슬라이딩 윈도우
+        for (let start = -4; start <= 0; start++) {
+            let count = 0;
+            let empty = 0;
+            let hasCenter = false;
             
-            for (let [dx, dy] of directions) {
-                let count = 1;
-                let openEnds = 0;
+            for (let i = 0; i < 5; i++) {
+                const r = row + dx * (start + i);
+                const c = col + dy * (start + i);
                 
-                // 한쪽 방향 체크
-                for (let i = 1; i < 5; i++) {
-                    const newRow = row + dx * i;
-                    const newCol = col + dy * i;
-                    
-                    if (newRow < 0 || newRow >= this.boardSize || 
-                        newCol < 0 || newCol >= this.boardSize) {
-                        break;
-                    }
-                    
-                    if (this.board[newRow][newCol] === player) {
-                        count++;
-                    } else if (this.board[newRow][newCol] === 0) {
-                        openEnds++;
-                        break;
-                    } else {
-                        break;
-                    }
+                if (r < 0 || r >= this.boardSize || 
+                    c < 0 || c >= this.boardSize) {
+                    count = 0; break;
                 }
                 
-                // 반대쪽 방향 체크
-                for (let i = 1; i < 5; i++) {
-                    const newRow = row - dx * i;
-                    const newCol = col - dy * i;
-                    
-                    if (newRow < 0 || newRow >= this.boardSize || 
-                        newCol < 0 || newCol >= this.boardSize) {
-                        break;
-                    }
-                    
-                    if (this.board[newRow][newCol] === player) {
-                        count++;
-                    } else if (this.board[newRow][newCol] === 0) {
-                        openEnds++;
-                        break;
-                    } else {
-                        break;
-                    }
-                }
+                if (r === row && c === col) hasCenter = true;
                 
+                if (this.board[r][c] === player) count++;
+                else if (this.board[r][c] === 0) empty++;
+                else { count = 0; break; } // 상대 돌 있으면 이 윈도우 불가
+            }
+            
+            // 5칸 안에 이미 player 돌 4개 + 빈칸 1개(=row,col) 
+            // = 여기 놓으면 4목 완성
+            if (hasCenter && count === 4 && empty === 1) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
                 // 4목 조건: 4개 연속 + 최소 한쪽은 열려있음
                 if (count === 4 && openEnds >= 1) {
                     return true;
