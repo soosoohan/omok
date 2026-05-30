@@ -383,8 +383,7 @@ h1 {
 </style>
 
 </head>
-<body onload="initLanguage()">
-
+<body>
   <button class="back-button"  onclick="location.href='index.html'">←</button>
 <div class="game-container">
    <div class="language-toggle">
@@ -459,39 +458,37 @@ h1 {
 
 
 <script>
-   let currentLanguage = 'ko';
+    let currentLanguage = 'ko';
 
-  function toggleLanguage(lang, ev) {
-    currentLanguage = lang;
-    document.querySelectorAll('.language-button').forEach(btn => btn.classList.remove('active'));
-    if (ev && ev.target) ev.target.classList.add('active');
+    // 언어 전환 함수
+    function toggleLanguage(lang) {
+        currentLanguage = lang;
+        
+        // 언어 버튼 활성화 상태 변경
+        document.querySelectorAll('.language-button').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
 
-    
-  if (lang === 'ko') {
-      document.getElementById('korean-content').classList.remove('hidden');
-      document.getElementById('english-content').classList.add('hidden');
-      document.getElementById('gameTitle').textContent = '오목 vs 컴퓨터';
-      document.getElementById('banner-ko').style.display = 'block';
-      document.getElementById('banner-en').style.display = 'none';
-    } else {
-      document.getElementById('korean-content').classList.add('hidden');
-      document.getElementById('english-content').classList.remove('hidden');
-      document.getElementById('gameTitle').textContent = 'OMOK vs AI';
-      document.getElementById('banner-ko').style.display = 'none';
-      document.getElementById('banner-en').style.display = 'block';
-    }
-
-    if (game) game.updateDisplayLanguage();
-  }
-function initLanguage() {
-  const saved = localStorage.getItem('soosoo-lang');
-  if (saved) {
-    toggleLanguage(saved); // 저장된 값 우선
-  } else {
-    const lang = navigator.language.startsWith('ko') ? 'ko' : 'en';
-    toggleLanguage(lang); // 브라우저 언어 감지
-  }
+        if (lang === 'ko') {
+    document.getElementById('korean-content').classList.remove('hidden');
+    document.getElementById('english-content').classList.add('hidden');
+    document.getElementById('gameTitle').textContent = '오목 vs 컴퓨터';
+    document.getElementById('banner-ko').style.display = 'block';
+    document.getElementById('banner-en').style.display = 'none';
+} else {
+    document.getElementById('korean-content').classList.add('hidden');
+    document.getElementById('english-content').classList.remove('hidden');
+    document.getElementById('gameTitle').textContent = 'OMOK vs AI';
+    document.getElementById('banner-ko').style.display = 'none';
+    document.getElementById('banner-en').style.display = 'block';
 }
+
+        // 게임이 진행 중이면 현재 상태 업데이트
+        if (game) {
+            game.updateDisplayLanguage();
+        }
+    }
 
     class OmokAI {
         constructor() {
@@ -1318,7 +1315,7 @@ function initLanguage() {
       <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
         <img src="https://soosooland.com/images/stone.png" alt="Numstone" style="width:100%; border-radius:10px; display:block;">
         <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">Numstone</div>
-        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">Merge</div>
+        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">Merge Game</div>
       </div>
     </a>
 
@@ -1332,11 +1329,11 @@ function initLanguage() {
 <div id="banner-en" style="display:none; background-color:#deb887; padding:10px 16px 24px; text-align:center;">
   <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:14px;">
     <a href="https://soosooland.com/numzzle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
-      Numzzle<br><span style="color:#fcdeb6;font-weight:bold;">Math Game</span></a>
+      Numzzle<br><span style="color:#fcdeb6;font-weight:bold;">Math<br>Game</span></a>
     <a href="https://soosooland.com/trinkle/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
       Trinkle<br><span style="color:#fcdeb6;font-weight:bold;">Strategy</span></a>
     <a href="https://soosooland.com/yagoo/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
-      Baseball<br><span style="color:#fcdeb6;font-weight:bold;">Logic Game</span></a>
+      Baseball<br><span style="color:#fcdeb6;font-weight:bold;">Logic<br>Game</span></a>
     <a href="https://soosooland.com/breeze/" style="background:linear-gradient(45deg,#4CAF50,#45a049);color:white;border-radius:15px;padding:8px 16px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;min-width:90px;">
       Worpuzz<br>Breeze<br><span style="color:#fcdeb6;font-weight:bold;">Word</span></a>
   </div>
