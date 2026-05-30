@@ -314,7 +314,7 @@ color:#2e261c;
 }
 </style>
 </head>
-<body>
+<body onload="initLanguage()">
 <button class="back-button" onclick="location.href='https://soosooland.com/'">
     Soosooland </button>
     <div class="container">
@@ -418,6 +418,15 @@ color:#2e261c;
             buttons[1].classList.add('active');
         }
     }
+   function initLanguage() {
+  const saved = localStorage.getItem('soosoo-lang');
+  if (saved) {
+    toggleLanguage(saved); // 저장된 값 우선
+  } else {
+    const lang = navigator.language.startsWith('ko') ? 'ko' : 'en';
+    toggleLanguage(lang); // 브라우저 언어 감지
+  }
+}
 </script>
 
 
