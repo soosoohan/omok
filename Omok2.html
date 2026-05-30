@@ -459,37 +459,30 @@ h1 {
 
 
 <script>
-    let currentLanguage = 'ko';
+   let currentLanguage = 'ko';
 
-    // 언어 전환 함수
-    function toggleLanguage(lang) {
-        currentLanguage = lang;
-        
-        // 언어 버튼 활성화 상태 변경
-        document.querySelectorAll('.language-button').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.target.classList.add('active');
+  function toggleLanguage(lang, ev) {
+    currentLanguage = lang;
+    document.querySelectorAll('.language-button').forEach(btn => btn.classList.remove('active'));
+    if (ev && ev.target) ev.target.classList.add('active');
 
-        if (lang === 'ko') {
-    document.getElementById('korean-content').classList.remove('hidden');
-    document.getElementById('english-content').classList.add('hidden');
-    document.getElementById('gameTitle').textContent = '오목 vs 컴퓨터';
-    document.getElementById('banner-ko').style.display = 'block';
-    document.getElementById('banner-en').style.display = 'none';
-} else {
-    document.getElementById('korean-content').classList.add('hidden');
-    document.getElementById('english-content').classList.remove('hidden');
-    document.getElementById('gameTitle').textContent = 'OMOK vs AI';
-    document.getElementById('banner-ko').style.display = 'none';
-    document.getElementById('banner-en').style.display = 'block';
-}
-
-        // 게임이 진행 중이면 현재 상태 업데이트
-        if (game) {
-            game.updateDisplayLanguage();
-        }
+    
+  if (lang === 'ko') {
+      document.getElementById('korean-content').classList.remove('hidden');
+      document.getElementById('english-content').classList.add('hidden');
+      document.getElementById('gameTitle').textContent = '오목 vs 컴퓨터';
+      document.getElementById('banner-ko').style.display = 'block';
+      document.getElementById('banner-en').style.display = 'none';
+    } else {
+      document.getElementById('korean-content').classList.add('hidden');
+      document.getElementById('english-content').classList.remove('hidden');
+      document.getElementById('gameTitle').textContent = 'OMOK vs AI';
+      document.getElementById('banner-ko').style.display = 'none';
+      document.getElementById('banner-en').style.display = 'block';
     }
+
+    if (game) game.updateDisplayLanguage();
+  }
 function initLanguage() {
   const saved = localStorage.getItem('soosoo-lang');
   if (saved) {
@@ -499,6 +492,7 @@ function initLanguage() {
     toggleLanguage(lang); // 브라우저 언어 감지
   }
 }
+
     class OmokAI {
         constructor() {
             this.boardSize = 15;
