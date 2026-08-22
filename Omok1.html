@@ -127,8 +127,8 @@
      }
 
      .language-button {
-       background: #2e261c;
-       color: #e6ae6a;
+       background: #f4a460;
+       color: white;
        border: none;
        padding: 6px 12px;
        margin: 2px;
@@ -138,8 +138,8 @@
        font-size: clamp(0.8rem, 2vw, 1rem);
        transition: all 0.3s ease;
      }
-     .language-button:hover { background: #20b2aa; }
-     .language-button.active { background: #ff69b4; }
+     .language-button:hover { background: #333; }
+     .language-button.active { background: #333; }
 
      .hidden { display: none !important; }
 
@@ -288,7 +288,8 @@
 }
 
      @media (max-width: 600px) {
-       .game-container { padding: 15px; }
+       h1 {margin-top: 30px;}
+     .game-container { padding: 15px; }
        .board { padding: 8px; }
        h1 { margin-bottom: 10px; }
        .game-info, .board-container { margin-bottom: 10px; }
@@ -299,8 +300,8 @@
  <button class="back-button"  onclick="location.href='index.html'">←</button>
  <div class="game-container">
     <div class="language-toggle">
-      <button class="language-button active" onclick="toggleLanguage('ko', event)">한국어</button>
-      <button class="language-button" onclick="toggleLanguage('en', event)">English</button>
+      <button class="language-button active" onclick="toggleLanguage('ko', event)">한</button>
+      <button class="language-button" onclick="toggleLanguage('en', event)">EN</button>
     </div>
 <br><br>
     <h1 id="gameTitle">오목: 둘이 대결</h1>
