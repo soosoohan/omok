@@ -88,21 +88,11 @@ max-width: 600px;
 box-sizing: border-box;
 position: relative;
 }
-.back-button {
-position: absolute;
-top: 20px;
-left: 20px;
-padding: 8px 10px;      /* 모바일 기본 */
-font-size: 1.5em;
-font-weight: bold;
-background-color: #ad8e65;
+.back-button { position: fixed; top: max(48px, env(safe-area-inset-top) + 20px); left: 22px; width: 44px; height: 44px; padding: 0; font-size: 1.8em; font-weight: bold; 
+background-color: #45a049;
 color: #2e261c;
-border-radius: 12px;
-border: none;
-cursor: pointer;
-transition: all 0.3s ease;
-z-index: 100;
-}
+border-radius: 12px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease;z-index: 100;}
+
 .back-button:hover {
 background-color: #1baf8f;
 color: #fff;
@@ -125,7 +115,7 @@ margin: 10px 0;
        position: absolute;
        top: 20px;
        right: 20px;
-       background: #ad8e65;
+       background: #45a049;
        padding: 8px;
        border-radius: 8px;
        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
@@ -397,6 +387,9 @@ h1 {
     margin-bottom: 10px;
 }
 
+}
+@media (max-width: 480px) {
+.back-button { top: max(30px, env(safe-area-inset-top) + 10px); left: 10px; width: 40px; height: 40px; font-size: 1.5em; }
 }
 
 </style>
