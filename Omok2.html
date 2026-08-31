@@ -505,6 +505,7 @@ h1 {
 }
 
 function toggleLanguage(lang) {
+    localStorage.setItem('soosoo-lang', lang);  // 이 줄 추가
     applyLanguage(lang);
 }
 
