@@ -352,10 +352,10 @@ border-radius: 12px; border: none; cursor: pointer; display: flex; align-items: 
   let currentLanguage = 'ko';
 
   function toggleLanguage(lang, ev) {
+    localStorage.setItem('soosoo-lang', lang);  // ← 이 줄 추가
     currentLanguage = lang;
     document.querySelectorAll('.language-button').forEach(btn => btn.classList.remove('active'));
     if (ev && ev.target) ev.target.classList.add('active');
-
     
   if (lang === 'ko') {
       document.getElementById('korean-content').classList.remove('hidden');
