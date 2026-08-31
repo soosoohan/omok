@@ -434,23 +434,25 @@ margin-top: auto;
 
 <script>
     function toggleLanguage(lang) {
-        const koreanDesc = document.getElementById('korean-description');
-        const englishDesc = document.getElementById('english-description');
-        const buttons = document.querySelectorAll('.language-button');
-        
-        buttons.forEach(btn => btn.classList.remove('active'));
-        
-        if (lang === 'ko') {
-            koreanDesc.classList.remove('hidden');
-            englishDesc.classList.add('hidden');
-            buttons[0].classList.add('active');
-        } else {
-            koreanDesc.classList.add('hidden');
-            englishDesc.classList.remove('hidden');
-            buttons[1].classList.add('active');
-        }
+    localStorage.setItem('soosoo-lang', lang);  // 이 줄 추가!
+
+    const koreanDesc = document.getElementById('korean-description');
+    const englishDesc = document.getElementById('english-description');
+    const buttons = document.querySelectorAll('.language-button');
+    
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    if (lang === 'ko') {
+        koreanDesc.classList.remove('hidden');
+        englishDesc.classList.add('hidden');
+        buttons[0].classList.add('active');
+    } else {
+        koreanDesc.classList.add('hidden');
+        englishDesc.classList.remove('hidden');
+        buttons[1].classList.add('active');
     }
-   function initLanguage() {
+}
+  function initLanguage() {
   const saved = localStorage.getItem('soosoo-lang');
   if (saved) {
     toggleLanguage(saved); // 저장된 값 우선
