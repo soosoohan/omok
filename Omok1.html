@@ -46,20 +46,23 @@
 {
   "@context": "https://schema.org",
   "@type": "VideoGame",
-  "name": "Omok 2-player",
-  "alternateName": "Gomoku",
-  "description": "Classic five in a row strategy board game",
+  "name": "2인 대결 오목",
+  "alternateName": ["Omok 2-player", "Gomoku"],
+  "description": "돌 5개를 한 줄로 놓으면 이기는 고전 게임 / Classic five in a row strategy board game",
   "url": "https://soosooland.com/omok/Omok1.html",
   "genre": ["Strategy", "Board Game"],
   "gamePlatform": "Web browser",
   "playMode": "MultiPlayer",
-  "numberOfPlayers": 2,
-  "inLanguage": ["en", "ko"],
+  "numberOfPlayers": {
+    "@type": "QuantitativeValue",
+    "value": 2
+  },
+  "inLanguage": ["ko", "en"],
   "isPartOf": {
-  "@type": "VideoGameSeries",
-  "name": "Omok",
-  "url": "https://soosooland.com/omok/"
-  }   
+    "@type": "VideoGameSeries",
+    "name": "오목 (Omok)",
+    "url": "https://soosooland.com/omok/"
+  }
 }
 </script>
 <script src="https://soosooland.com/js/protection.js"></script>  
