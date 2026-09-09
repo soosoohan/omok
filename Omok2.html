@@ -524,9 +524,10 @@ function initLanguage() {
     applyLanguage(lang);
 }
      
-    class OmokAI {
-        constructor() {
-            this.boardSize = 15;
+  class OmokAI {
+    constructor() {
+        this.id = ++gameIdCounter;
+        this.boardSize = 15;
             this.board = Array(this.boardSize).fill(null).map(() => Array(this.boardSize).fill(0));
             this.gameOver = false;
             this.moveHistory = [];
@@ -660,8 +661,8 @@ function initLanguage() {
             this.updateDisplay();
         }
 
-        async aiMove() {
-            if (this.gameOver) return;
+                async aiMove() {
+            if (this.gameOver || this.id !== gameIdCounter) return;
 
             this.isThinking = true;
             this.disableBoard();
@@ -671,6 +672,8 @@ function initLanguage() {
                             this.difficulty === 'master' ? 1500 : 1500;
 
             await new Promise(resolve => setTimeout(resolve, thinkTime));
+
+            if (this.id !== gameIdCounter) return;
 
             const move = this.getBestMove();
             if (move) {
@@ -1170,19 +1173,20 @@ function initLanguage() {
             // 현재 플레이어 표시 다시 보이기
             document.querySelectorAll('.game-info').forEach(el => el.style.display = 'block');
             
-            this.initBoard();
+                        this.initBoard();
             this.updateDisplay();
 
             // 달인 모드면 AI가 먼저 천원에 착수
             if (this.masterMode) {
                 setTimeout(() => {
-                    this.aiMove();
+                    if (this.id === gameIdCounter) this.aiMove();
                 }, 600);
             }
         }
     }
 
-    let game;
+let gameIdCounter = 0;
+let game;
 
     function resetGame() {
         // 승리 메시지 지우기
