@@ -667,9 +667,7 @@ function initLanguage() {
             this.isThinking = true;
             this.disableBoard();
 
-            const thinkTime = this.difficulty === 'easy' ? 500 : 
-                            this.difficulty === 'medium' ? 1000 :
-                            this.difficulty === 'master' ? 1500 : 1500;
+            const thinkTime = (this.masterMode && this.moveHistory.length === 0) ? 100 : 500;
 
             await new Promise(resolve => setTimeout(resolve, thinkTime));
 
