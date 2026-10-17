@@ -158,6 +158,15 @@ color: #333;
 font-size: min(1.4em, 4.5vw);
 }
 
+.difficulty-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  margin: 0 auto;
+}
+
 .difficulty-selector {
 text-align: center;
 margin-bottom: 15px;
@@ -392,8 +401,28 @@ h1 {
 }
 
 }
+@media (max-width: 520px) {
+  .difficulty-row .difficulty-btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding-left: 2px !important;
+    padding-right: 2px !important;
+    font-size: 0.8rem !important;
+    white-space: nowrap;
+  }
+
+  .banner-row { padding-left: 8px !important; padding-right: 8px !important; }
+  .banner-row > div { flex-wrap: nowrap !important; gap: 6px !important; }
+  .banner-row a { flex: 1 1 0; min-width: 0; max-width: 100px; }
+  .banner-row a > div { width: auto !important; padding: 5px !important; }
+  .banner-row a div div { font-size: 0.7rem !important; }
+}
+
 @media (max-width: 480px) {
 .back-button { top: max(30px, env(safe-area-inset-top) + 10px); left: 10px; width: 40px; height: 40px; font-size: 1.5em; }
+h1 {
+margin-top: 50px;
+}
 }
 
 </style>
@@ -448,10 +477,12 @@ h1 {
       <div class="difficulty-selector">
     <label>Choose the computer's skill level.</label><br>
     The selected option will be highlighted in orange.<br>
-    <button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
-    <button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
-    <button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
-    <button class="difficulty-btn master-btn" onclick="setDifficulty('master')">Master</button>
+    <div class="difficulty-row">
+  <button class="difficulty-btn active" onclick="setDifficulty('easy')">Beginner</button>
+  <button class="difficulty-btn" onclick="setDifficulty('medium')">Normal</button>
+  <button class="difficulty-btn" onclick="setDifficulty('hard')">Expert</button>
+  <button class="difficulty-btn master-btn" onclick="setDifficulty('master')">Master</button>
+</div>
       <div class="master-notice" id="masterNotice-en">⚫ Master mode: Computer plays black and goes first!</div>
       </div>
 
@@ -1259,14 +1290,20 @@ let game;
 
 
 <!-- 수수랜드 게임 추천 배너 한국어 -->
-<div id="banner-ko" style="background-color:#deb887; padding:10px 16px 24px; text-align:center;">
+<div class="banner-row" id="banner-ko" style="background-color:#deb887; padding:10px 16px 24px; text-align:center;">
   <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:14px;">
-
-    <a href="https://soosooland.com/numzzle/" style="text-decoration:none; color:inherit;">
+<a href="https://soosooland.com" style="text-decoration:none; color:inherit;">
       <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
-        <img src="https://soosooland.com/images/numzzle.jpeg" alt="넘즐" style="width:100%; border-radius:10px; display:block;">
-        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">넘즐</div>
-        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">연산게임</div>
+     <img src="https://soosooland.com/images/zzinilove2.png" alt="Soosooland" style="width:100%; border-radius:10px; display:block;">
+        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">수수랜드</div>
+        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">즐거운 퍼즐</div>
+      </div>
+    </a>
+<a href="https://soosooland.com/stone/" style="text-decoration:none; color:inherit;">
+      <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
+        <img src="https://soosooland.com/omok/stone.jpeg" alt="넘스톤" style="width:100%; border-radius:10px; display:block;">
+        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">넘스톤</div>
+        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">머지게임</div>
       </div>
     </a>
 
@@ -1278,6 +1315,7 @@ let game;
       </div>
     </a>
 
+    
    <a href="https://soosooland.com/yagoo/" style="text-decoration:none; color:inherit;">
       <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
         <img src="https://soosooland.com/images/yagoo.png" alt="야구게임" style="width:100%; border-radius:10px; display:block;">
@@ -1286,31 +1324,29 @@ let game;
       </div>
     </a>
 
-    <a href="https://soosooland.com/numnum/" style="text-decoration:none; color:inherit;">
-      <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
-        <img src="https://soosooland.com/numnum/numnum1.png" alt="넘넘" style="width:100%; border-radius:10px; display:block;">
-        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">넘넘</div>
-        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">머지게임</div>
-      </div>
-    </a>
-
-  </div>
-  <div style="text-align:center;">
-    <a href="https://soosooland.com" style="display:inline-block;background:#145454;color:white;padding:8px 24px;border-radius:15px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;letter-spacing:1px;">
-      즐거운 퍼즐 놀이터 수수랜드</a>
+    
   </div>
 </div>
 
 
 <!-- 수수랜드 게임 추천 배너 영어 -->
-<div id="banner-en" style="display:none; background-color:#deb887; padding:10px 16px 24px; text-align:center;">
+<div class="banner-row" id="banner-en" style="display:none; background-color:#deb887; padding:10px 16px 24px; text-align:center;">
   <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-bottom:14px;">
 
-    <a href="https://soosooland.com/numzzle/" style="text-decoration:none; color:inherit;">
+    <a href="https://soosooland.com" style="text-decoration:none; color:inherit;">
       <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
-        <img src="https://soosooland.com/images/numzzle.jpeg" alt="Numzzle" style="width:100%; border-radius:10px; display:block;">
-        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">Numzzle</div>
-        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">Math Game</div>
+        <img src="https://soosooland.com/images/zzinilove2.png" alt="Soosooland" style="width:100%; border-radius:10px; display:block;">
+        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">Soosooland</div>
+        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">Fun Puzzles</div>
+      </div>
+    </a>
+
+    
+    <a href="https://soosooland.com/stone/" style="text-decoration:none; color:inherit;">
+      <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
+        <img src="https://soosooland.com/omok/stone.jpeg" alt="NumStone" style="width:100%; border-radius:10px; display:block;">
+        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">NumStone</div>
+        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">Merge</div>
       </div>
     </a>
 
@@ -1330,19 +1366,6 @@ let game;
       </div>
     </a>
 
-
-    <a href="https://soosooland.com/numnum/" style="text-decoration:none; color:inherit;">
-      <div style="background:linear-gradient(45deg,#4CAF50,#45a049); border-radius:15px; padding:8px; width:100px; text-align:center;">
-        <img src="https://soosooland.com/numnum/numnum1.png" alt="NumNum" style="width:100%; border-radius:10px; display:block;">
-        <div style="color:white; font-weight:bold; font-size:clamp(0.9rem,2.5vw,1rem); margin-top:5px;">NumNum</div>
-        <div style="color:#fcdeb6; font-weight:bold; font-size:clamp(0.8rem,2vw,0.9rem);">Merge Game</div>
-      </div>
-    </a>
-
-  </div>
-  <div style="text-align:center;">
-    <a href="https://soosooland.com" style="display:inline-block;background:#145454;color:white;padding:8px 24px;border-radius:15px;text-decoration:none;font-size:clamp(1rem,3vw,1.2rem);font-weight:bold;letter-spacing:1px;">
-      Fun Puzzle Playground Soosooland</a>
   </div>
 </div>
 
