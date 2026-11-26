@@ -68,7 +68,14 @@
 <script src="https://soosooland.com/js/protection.js"></script>
 <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
- :root {--content-width: 800px;}
+ :root {
+  --content-width: 800px;
+  --tb-bg: #deb887;
+  --tb-border: #666;
+  --tb-text: #ddd;
+  --tb-active-bg: #e8e8e8;
+  --tb-active-text: #222;
+  }
  
 * {
     margin: 0;
@@ -90,52 +97,60 @@ body {
     flex-direction: column;
     position: relative;
 }
-
-.header {
-    position: relative;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;      /* 이 줄 추가 */
-    text-align: center;
-    display: flex;
-    justify-content: center;
+.toolbar {
+  width: 800px;
+  max-width: 100%;
+  margin: 0 auto 8px;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  background: var(--tb-bg);
+  border: 1px solid var(--tb-border);
+  border-radius: 12px;
 }
-  
+
 .back-button {
-position: fixed; 
-top: max(48px, env(safe-area-inset-top) + 20px); 
-left: 22px; 
-width: 44px;
-height: 44px;
-padding: 0;
-background: transparent;
-order: none;
-border-radius: 22%;
-cursor: pointer;
-z-index: 100; 
-overflow: hidden; 
-box-shadow: 0 2px 6px rgba(0,0,0,0.25); 
-} 
+  margin-left: 44px;
+  flex-shrink: 0;
+  width: 44px; height: 44px; padding: 0;
+  background: transparent; border: none;
+  border-radius: 22%; cursor: pointer; overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
 
-.back-button img {width: 100%;height: 100%;object-fit: cover;display: block;}
+ .back-button img {width: 100%;height: 100%;object-fit: cover;display: block;}
 
-.back-button:active {transform: scale(0.92);transition: transform 0.1s;}
+  .back-button:active {transform: scale(0.92);transition: transform 0.1s;}
+
+
+
+header {
+  text-align: center;
+  margin: 0 auto 20px;
+  padding-top: 20px;
+  max-width: 800px;
+}
+ 
 
 .language-toggle {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #ad8e65;
-    padding: 8px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    background: #deb887;
+    border-radius: 20px;
+    padding: 6px 14px;
+    color: #403d39;
+    font-size: 0.9rem;
+    cursor: pointer;
     z-index: 100;
+    gap: 4px;
+    transition: background 0.2s;
 }
 
 .language-button {
     background: #f4a460;
-    color: white;
-    border: none;
+    color: #403d39;
+    border: 1px solid #403d39;
     padding: 6px 12px;
     margin: 2px;
     border-radius: 5px;
@@ -146,11 +161,11 @@ box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
 .language-button:hover {
-    background: #333;
+    background: #b07310;
 }
 
 .language-button.active {
-    background: #333;
+    background: #b07310;
 }
 
 .main-title {
@@ -215,15 +230,19 @@ color:#2e261c;
     margin-top: 20px;
 }
 
+
 .buttons-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 15px;
     width: 100%;
-    max-width: 400px;
+    max-width: 800px;
 }
 
 .main-game-button {
+    flex: 1;            /* 두 버튼이 남는 너비를 똑같이 나눠 가짐 */
+    width: auto;        /* 기존 width: 100% 대신 */
+    white-space: nowrap; /* 글자가 두 줄로 안 꺾이게 */
     background: rgba(255,255,255,0.9);
     color: #2e261c;
     padding: 15px 20px;
@@ -266,118 +285,40 @@ margin-top: auto;
     display: none;
 }
 
-/* 모바일 최적화 */
-@media (max-width: 768px) {
-    .header {
-        padding: 15px;
-    }
+header { display: flow-root; height: auto !important; }
+.main-title { height: auto !important; }
+.main-title img { position: static !important; float: none !important; }
 
-    .language-toggle {
-        top: 15px;
-        right: 15px;
-        padding: 6px;
-    }
-
-    .content {
-        padding: 15px;
-    }
-
-    
-}
-
-  @media (max-width: 480px) {
-    .header {
-        padding: 10px;
-    }
-    .back-button {
-        top: max(30px, env(safe-area-inset-top) + 10px);
-        left: 10px;
-        width: 40px;
-        height: 40px;
-    }
-    .language-toggle {
-        top: 10px;
-        right: 10px;
-        padding: 4px;
-    }
-    .main-title {
-        margin-top: 50px;
-    }
-}
-
-    .content {
-        padding: 10px;
-    }
-
-    .buttons-container {
-        max-width: 300px;
-    }
-
-    .footer {
-        padding: 15px;
-    }
-}
-
-/* 가로 모드 모바일 */
-@media (max-height: 600px) and (orientation: landscape) {
-    .content {
-        justify-content: flex-start;
-        padding-top: 10px;
-    }
-
-    .game-description {
-        margin-bottom: 20px;
-    }
-
-    .game-menu {
-        margin-top: 10px;
-        gap: 15px;
-    }
-
-    .buttons-container {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        max-width: 600px;
-    }
-
-    .main-game-button {
-        flex: 1;
-        min-width: 180px;
-        max-width: 200px;
-    }
-
-    .footer {
-        padding: 10px;
-    }
-
-}
 </style>
 </head>
 <body onload="initLanguage()">
-<button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
-<img src="https://soosooland.com/images/home.png" alt="수수랜드 홈"></button>
-    <div class="container">
-        <!-- 헤더 -->
-        <div class="header">
-            <div class="language-toggle">
+<link rel="stylesheet" href="toolbar.css">
+
+<div class="toolbar">
+  <button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
+  <img src="https://soosooland.com/images/home.png" alt="수수랜드 홈">
+</button>
+              <div class="language-toggle">
                 <button class="language-button active" onclick="toggleLanguage('ko')">한</button>
                 <button class="language-button" onclick="toggleLanguage('en')">EN</button>
-            </div>
+            </div><!-- 랭귀지토글 -->
+</div> <!-- .toolbar -->
 
+<header>
     <h1 class="main-title">
-        <img src="banner.png" alt="오목 gomoku">
+        <img src="https://soosooland.com/omok/banner.png" alt="오목 gomoku">
     </h1>
+  
+</header>
 
-        </div>
       
     <!-- 메인 콘텐츠 -->
-    <div class="content">
+    <div class="content"><!-- 1 content -->
         <!-- 한국어 설명 -->
-        <div class="game-description" id="korean-description">
+        <div class="game-description" id="korean-description"><!-- 2한글 설명 -->
             <h3> 돌 5개를 한 줄로 놓으면 이깁니다. </h3>
-            <p> 오목 = 오(5)+ 목(점)</p>
-            
+            <ul><li> 오목 = 오(5)+ 목(점)</li>
+            </ul>
             <h3>📋 게임 규칙</h3>
             <ul>
                 <li>검은 돌과 흰 돌이 있으며 두 선수는 교대로 돌을 한 개씩 놓습니다.</li>
@@ -387,23 +328,22 @@ margin-top: auto;
                 <li>달인 모드는 컴퓨터가 흑돌을 쥐고 먼저 둡니다.</li>
                 </ul>
 
-            <div class="game-menu">
-                <div class="buttons-container">
+            <div class="game-menu"><!-- 3게임메뉴 -->
+                <div class="buttons-container"><!-- 4게임컨테이너 -->
                     <button class="main-game-button" onclick="location.href='Omok1.html'">
-                        👫두 사람이 대결하기  
+                        👫 2인 대결  
                     </button>
                     <button class="main-game-button" onclick="location.href='Omok2.html'">
-                        🤖 컴퓨터와 대결하기 
+                        🤖 vs AI
                     </button>
     
-                </div>
-            </div>
-        </div>
-        <!-- 영어 설명 -->
-     
-<div class="game-description hidden" id="english-description">
+                </div><!--4버튼 컨테이너  -->
+            </div><!-- 3게임메뉴 -->
+        </div><!-- 2한글설명 -->
+        
+<div class="game-description hidden" id="english-description"><!-- 2영어설명 -->
     <h3>Get 5 stones in a row to win!</h3>
-    <p>OMOK = O(5) + MOK(point)</p>
+    <ul><li>OMOK = O(5) + MOK(point)</li></ul>
     
     <h3>📋 Game Rules</h3>
     <ul>
@@ -425,23 +365,20 @@ margin-top: auto;
         <li>Master mode: Computer plays black and goes first!</li>
     </ul>
 
-            <div class="game-menu">
-                <div class="buttons-container">
-                    <div class="game-menu">
-                <div class="buttons-container">
+            <div class="game-menu"><!-- 3게임메뉴 -->
+                <div class="buttons-container"> <!-- 4버튼 컨테이너 -->
                     <button class="main-game-button" onclick="location.href='Omok1.html'">
-                        👫 Play with a Friend 
+                        👫 2- Player
                     </button>
                     <button class="main-game-button" onclick="location.href='Omok2.html'">
-                        🤖 Play against Computer
+                        🤖 vs AI
                     </button>
               
-</div>
-            </div>
-        </div>
-    </div>
+</div><!-- 4버튼 컨테이너 -->
+            </div><!-- 3게임메뉴 -->
+        </div><!-- 3영어설명 -->
+    </div><!-- 콘텐츠 -->
 
-    </div>
 <credit>
   <p>© 2025 Han Soosoo.</p>
 </credit>
